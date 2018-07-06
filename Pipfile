@@ -4,14 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
-django-debug-toolbar = "*"
-coverage = "*"
 
 [packages]
 django = "*"
 requests = "*"
 googletrans = "*"
-"psycopg2-binary" = "*"
 
 [requires]
 python_version = "3.7"
