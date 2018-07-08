@@ -1,5 +1,3 @@
-import string
-
 import requests
 
 import pandas as pd
@@ -32,37 +30,21 @@ def generate_products(page):
     return products['products']
 
 
-def make_translation(word, lang=True):
+def make_translation(word):
     """
-    Translate a word using GoogleTrans library 
+    Translate a word using GoogleTrans library
     The language might be indicate in the 2 first character
     :param word: string
     :param language: string
     :return: word string
     """
-    if len(word) > 3 and word[2] == ':':
-        # take the language indication
-        language = word[:2]
-        # Remove first 3 char
-        word = word[3:]
-        translator = Translator()
-        # detect language
-        tr = translator.detect(word)
-        # if language detected is different
-        # the confidence of the translator is above 90 %
-        # take the language from the translator
-        if tr.confidence > 0.9 and tr.lang != language:
-            language = tr.lang
-        word = translator.translate(word, src=language, dest='fr').text
-    else:
-        translator = Translator()
-        trad = translator.translate(word, dest='fr')
-        word = trad.text
-        language = trad.src
-    if not lang:
-        return word
-
-    return word, language
+    translator = Translator()
+    # take the language indication
+    language = get_language(word)
+    # remove language indicator
+    word = slice_language(word)
+    # translate word to french
+    return translator.translate(word, src=language, dest='fr').text
 
 
 def detect_lang(word):
@@ -76,6 +58,26 @@ def slice_language(word):
     if len(word) > 3 and word[2] == ':':
         word = word[3:]
     return word
+
+
+def get_language(word):
+    """
+    Return the language of the word if its has a language indicator.
+    If its has not googletrans library will detect its language
+    """
+    if len(slice_language(word)) == len(word):
+        # the word has no language indicator
+        lang = detect_lang(word)
+    else:
+        lang = word[:2]
+        translator = Translator()
+        tr = translator.detect(word)
+        # if language detected is different
+        # the confidence of the translator is above 90 %
+        # take the language from the translator
+        if tr.confidence > 0.9 and tr.lang != lang:
+            lang = tr.lang
+    return lang
 
 
 def generate_dataframe():
