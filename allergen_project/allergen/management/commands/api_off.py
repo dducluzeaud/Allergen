@@ -17,7 +17,6 @@ class Command(BaseCommand):
 
         data = concat_dataframe()
 
-        
         for index in data.index.values:
             """
             Fetch data in the dataframe
@@ -39,11 +38,11 @@ class Command(BaseCommand):
             prod, prod_created = Product.objects.get_or_create(
                 barcode=code,
                 defaults={
-                   'product_name': product_name,
-                   'image_url': image_small_url,
-                   'url_off': url,
-                   'nutrition_grade': nutrition_grades,
-                   'quantity': quantity,
+                    'product_name': product_name,
+                    'image_url': image_small_url,
+                    'url_off': url,
+                    'nutrition_grade': nutrition_grades,
+                    'quantity': quantity,
                 })
 
             print(f'\n{product_name}')
@@ -135,7 +134,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['energy_value']),
-                                        nutriments['energy_unit']])
+                                         nutriments['energy_unit']])
 
                     NutrimentComposeProduct.objects.create(
                         product=prod,
@@ -149,7 +148,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['fat_value']),
-                                        nutriments['fat_unit']])
+                                         nutriments['fat_unit']])
 
                     NutrimentComposeProduct.objects.create(
                         product=prod,
@@ -162,7 +161,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['protein_value']),
-                                        nutriments['protein_unit']])
+                                         nutriments['protein_unit']])
 
                     NutrimentComposeProduct.objects.create(
                         product=prod,
@@ -175,7 +174,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['salt_value']),
-                                        nutriments['salt_unit']])
+                                         nutriments['salt_unit']])
 
                     NutrimentComposeProduct.objects.create(
                         product=prod,
@@ -188,7 +187,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['sugar_value']),
-                                        nutriments['sugar_unit']])
+                                         nutriments['sugar_unit']])
 
                     NutrimentComposeProduct.objects.create(
                         product=prod,
@@ -201,7 +200,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['saturated_fat_value']),
-                                        nutriments['saturated_fat_unit']])
+                                         nutriments['saturated_fat_unit']])
 
                     NutrimentComposeProduct.objects.create(
                         product=prod,
@@ -209,19 +208,18 @@ class Command(BaseCommand):
                         nutriment_quantity=quantity
                     )
 
-
                 if k == 'polyunsaturated-fat_label':
                     poly, poly_c = Nutriment.objects.get_or_create(
                         nutriment_name=v
                     )
                     quantity = ' '.join([str(nutriments['polyunsaturated-fat_value']),
-                                             nutriments['polyunsaturated-fat_unit']])
+                                         nutriments['polyunsaturated-fat_unit']])
 
                     NutrimentComposeProduct.objects.create(
-                            product=prod,
-                            nutriment=poly,
-                            nutriment_quantity=quantity
-                        )
+                        product=prod,
+                        nutriment=poly,
+                        nutriment_quantity=quantity
+                    )
 
                 elif k == 'monounsaturated-fat_label':
                     mono, mono_c = Nutriment.objects.get_or_create(
@@ -229,7 +227,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['monounsaturated-fat_value']),
-                                        nutriments['monounsaturated-fat_unit']])
+                                         nutriments['monounsaturated-fat_unit']])
                     NutrimentComposeProduct.objects.create(
                         product=prod,
                         nutriment=mono,
@@ -242,7 +240,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['omega-3-fat_value']),
-                                        nutriment['omega-3-fat_unit']])
+                                         nutriment['omega-3-fat_unit']])
                     NutrimentComposeProduct.objects.create(
                         product=prod,
                         nutriment=om3,
@@ -255,7 +253,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['omega-6-fat_value']),
-                                       nutriment['omega-6-fat_unit']])
+                                         nutriment['omega-6-fat_unit']])
 
                     NutrimentComposeProduct.objects.create(
                         product=prod,
@@ -269,7 +267,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['omega-9-fat_value']),
-                                        nutriment['omega-9-fat_unit']])
+                                         nutriment['omega-9-fat_unit']])
 
                     NutrimentComposeProduct.objects.create(
                         product=prod,
@@ -283,8 +281,8 @@ class Command(BaseCommand):
                         nutriment_name=v
                     )
 
-                    quantity =  ' '.join([str(nutriments['calcium_value']),
-                                        nutriments['calcium_label']])
+                    quantity = ' '.join([str(nutriments['calcium_value']),
+                                         nutriments['calcium_label']])
 
                     NutrimentComposeProduct.objects.create(
                         product=prod,
@@ -299,7 +297,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['cholesterol_value']),
-                                        nutriments['cholesterol_unit']])
+                                         nutriments['cholesterol_unit']])
 
                     NutrimentComposeProduct.objects.create(
                         product=prod,
@@ -313,7 +311,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['iron_value']),
-                                        nutriments['iron_unit']])
+                                         nutriments['iron_unit']])
 
                     NutrimentComposeProduct.objects.create(
                         product=prod,
@@ -328,7 +326,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['fiber_value']),
-                                        nutriments['fiber_unit']])
+                                         nutriments['fiber_unit']])
                     NutrimentComposeProduct.objects.create(
                         product=prod,
                         nutriment=fib,
@@ -342,7 +340,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['fructose_value']),
-                                        nutriments['fructose_unit']])
+                                         nutriments['fructose_unit']])
                     NutrimentComposeProduct.objects.create(
                         product=prod,
                         nutriment=fru,
@@ -356,7 +354,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['gluten_value']),
-                                        nutriments['gluten_unit']])
+                                         nutriments['gluten_unit']])
 
                     NutrimentComposeProduct.objects.create(
                         product=prod,
@@ -371,7 +369,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['lactose_value']),
-                                        nutriments['lactose_unit']])
+                                         nutriments['lactose_unit']])
 
                     NutrimentComposeProduct.objects.create(
                         product=prod,
@@ -386,7 +384,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['magnesium_value']),
-                                        nutriments['magnesium_unit']])
+                                         nutriments['magnesium_unit']])
 
                     NutrimentComposeProduct.objects.create(
                         product=prod,
@@ -401,7 +399,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['potassium_value']),
-                                        nutriments['potassium_unit']])
+                                         nutriments['potassium_unit']])
 
                     NutrimentComposeProduct.objects.create(
                         product=prod,
@@ -431,7 +429,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['vitamin-a_value']),
-                                            nutriments['vitamin-a_unit']])
+                                         nutriments['vitamin-a_unit']])
 
                     VitaminComposeProduct.objects.get_or_create(
                         product=prod,
@@ -445,7 +443,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['carotene__value']),
-                                            nutriments['carotene__unit']])
+                                         nutriments['carotene__unit']])
 
                     VitaminComposeProduct.objects.get_or_create(
                         product=prod,
@@ -460,7 +458,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['vitamin-b1_value']),
-                                            nutriments['vitamin-b1_unit']])
+                                         nutriments['vitamin-b1_unit']])
 
                     VitaminComposeProduct.objects.get_or_create(
                         product=prod,
@@ -475,7 +473,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['vitamin-b2_value']),
-                                            nutriments['vitamin-b2_unit']])
+                                         nutriments['vitamin-b2_unit']])
 
                     VitaminComposeProduct.objects.get_or_create(
                         product=prod,
@@ -490,7 +488,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['vitamin-pp_value']),
-                                            nutriments['vitamin-pp_unit']])
+                                         nutriments['vitamin-pp_unit']])
 
                     VitaminComposeProduct.objects.get_or_create(
                         product=prod,
@@ -505,7 +503,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['pantothenic-acid_value']),
-                                            nutriments['pantothenic-acid_unit']])
+                                         nutriments['pantothenic-acid_unit']])
 
                     VitaminComposeProduct.objects.get_or_create(
                         product=prod,
@@ -520,7 +518,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['vitamin-b6_value']),
-                                            nutriments['vitamin-b6_unit']])
+                                         nutriments['vitamin-b6_unit']])
 
                     VitaminComposeProduct.objects.get_or_create(
                         product=prod,
@@ -535,7 +533,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['biotin_value']),
-                                            nutriments['biotin_unit']])
+                                         nutriments['biotin_unit']])
 
                     VitaminComposeProduct.objects.get_or_create(
                         product=prod,
@@ -550,7 +548,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['vitamin-b9_value']),
-                                            nutriments['vitamin-b9_unit']])
+                                         nutriments['vitamin-b9_unit']])
 
                     VitaminComposeProduct.objects.get_or_create(
                         product=prod,
@@ -565,7 +563,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['vitamin-b12_value']),
-                                            nutriments['vitamin-b12_unit']])
+                                         nutriments['vitamin-b12_unit']])
 
                     VitaminComposeProduct.objects.get_or_create(
                         product=prod,
@@ -580,7 +578,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['vitamin-c_value']),
-                                            nutriments['vitamin-c_unit']])
+                                         nutriments['vitamin-c_unit']])
 
                     VitaminComposeProduct.objects.get_or_create(
                         product=prod,
@@ -595,7 +593,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['vitamin-d_value']),
-                                            nutriments['vitamin-d_unit']])
+                                         nutriments['vitamin-d_unit']])
 
                     VitaminComposeProduct.objects.get_or_create(
                         product=prod,
@@ -610,7 +608,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['vitamin-e_value']),
-                                            nutriments['vitamin-e_unit']])
+                                         nutriments['vitamin-e_unit']])
 
                     VitaminComposeProduct.objects.get_or_create(
                         product=prod,
@@ -625,7 +623,7 @@ class Command(BaseCommand):
                     )
 
                     quantity = ' '.join([str(nutriments['vitamin-k_value']),
-                                            nutriments['vitamin-k_unit']])
+                                         nutriments['vitamin-k_unit']])
 
                     VitaminComposeProduct.objects.get_or_create(
                         product=prod,
