@@ -38,13 +38,21 @@ def make_translation(word):
     :param language: string
     :return: word string
     """
-    translator = Translator()
-    # take the language indication
-    language = get_language(word)
-    # remove language indicator
-    word = slice_language(word)
-    # translate word to french
-    return translator.translate(word, src=language, dest='fr').text
+    if word == 'en:spreads':
+        # better translation for the word spreads
+        return 'Pate à tartiner'
+    elif word == 'en:sweets-spreads':
+        return 'Pâte à tartiner sucrée'
+    elif word == 'en:plant-based-spreads':
+        return 'Pâte à tartiner végétal'
+    else:
+        translator = Translator()
+        # take the language indication
+        language = get_language(word)
+        # remove language indicator
+        word = slice_language(word)
+        # translate word to french
+        return translator.translate(word, src=language, dest='fr').text
 
 
 def detect_lang(word):
@@ -82,7 +90,7 @@ def get_language(word):
 
 def generate_dataframe():
     nb_pages = count_pages() + 1
-    for page in range(1, 6):
+    for page in range(1, nb_pages):
         print(page)
         products = generate_products(page)
         df = pd.DataFrame(products)
@@ -96,11 +104,9 @@ def generate_dataframe():
                 'nutrition_grades',
                 'quantity',  # provide the measurement unit
                 'categories_hierarchy',   # list all categories
-                'additives_n',  # additives number
                 'additives_tags',  # list all additives
                 'allergens_hierarchy',  # list all allergens
-                'ingredients_hierarchy',  # list all ingredients
-                'ingredients_n',  # ingredients number
+                'ingredients',  # list all ingredients
                 'nutrient_levels',  # sugar , salt, fat, saturated-fat level
                 'nutriments',  # list all nutriments
                 'traces_hierarchy',  # list all traces of allergens
@@ -109,7 +115,11 @@ def generate_dataframe():
             df = df.dropna(subset=[
                 'product_name',
                 'code',
-                'nutrition_grades'
+                'nutrition_grades',
+                'categories_hierarchy', 
+                'ingredients',
+                'url', 
+                'image_small_url',
             ])
             yield df
         except KeyError:
