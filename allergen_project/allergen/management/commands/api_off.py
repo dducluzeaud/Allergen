@@ -30,7 +30,7 @@ class Command(BaseCommand):
             categories_hierarchy = data.loc[index, 'categories_hierarchy']
             additives_tags = data.loc[index, 'additives_tags']
             allergens_hierarchy = data.loc[index, 'allergens_hierarchy']
-            ingredients_hierarchy = data.loc[index, 'ingredients_hierarchy']
+            ingredients = data.loc[index, 'ingredients']
             nutrient_levels = data.loc[index, 'nutrient_levels']
             nutriments = data.loc[index, 'nutriments']
             traces_hierarchy = data.loc[index, 'traces_hierarchy']
@@ -87,9 +87,9 @@ class Command(BaseCommand):
                 # add additive to the product
                 prod.additives.add(add)
 
-            for ingredient in ingredients_hierarchy:
+            for ingredient in ingredients:
                 # ingredient might have a language indicator
-                ingredient = make_translation(ingredient)
+                ingredient = filter_regex(ingredient.text)
                 ing, ing_created = Ingredient.objects.get_or_create(
                     ingredient_name=ingredient
                 )
@@ -110,7 +110,7 @@ class Command(BaseCommand):
                     allergen_name=t_all.translated_name)
 
                 # Add relation to the product
-                NutrimentComposeProduct.objects.create
+                prod.allergens.add(alg)
 
             for trace in traces_hierarchy:
                 lang = get_language(trace)

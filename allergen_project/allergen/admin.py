@@ -20,7 +20,6 @@ class AdditiveInline(admin.TabularInline):
 class VitaminInline(admin.TabularInline):
     model = VitaminComposeProduct
     extra = 0
-    fields = ('vitamin_quantity',)
     verbose_name_plural = 'Vitamines'
 
 class NutrimentInline(admin.TabularInline):
