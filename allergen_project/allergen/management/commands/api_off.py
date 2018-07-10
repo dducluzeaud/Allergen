@@ -76,25 +76,37 @@ class Command(BaseCommand):
                         name_origin=parent_category)
                     parent_category = Category.objects.get(
                         category_name=trans_parent_category.translated_name)
+                    # add relation to M2M relation
                     cat.hierarchy.add(parent_category)
 
             for additive in additives_tags:
                 # additive might have a language indicator
-                additive = make_translation(additive)
-                add, add_created = Additive.objects.get_or_create(
-                    additive_name=additive)
+                additive = slice_language(additive)
+                # additives have a construction pattern
+                # they might have incorrect char
+                regex = re.compile(r'^(e|L)\d{3,4}')
+                add_search = re.search(regex, additive)
+                if add_search:
+                    add, add_created = Additive.objects.get_or_create(
+                        additive_name=add_search[0])
 
-                # add additive to the product
-                prod.additives.add(add)
+                    # add additive to the product
+                    prod.additives.add(add)
+                else:
+                    continue
 
             for ingredient in ingredients:
-                # ingredient might have a language indicator
-                ingredient = filter_regex(ingredient.text)
-                ing, ing_created = Ingredient.objects.get_or_create(
-                    ingredient_name=ingredient
-                )
-                # add ingredient to product
-                prod.ingredients.add(ing)
+                # ingredient can not contain number
+                regex = re.compile(r'^\D+$')
+                ing_search = re.search(regex, ingredient.text)
+                if ing_search:
+                    ing, ing_created = Ingredient.objects.get_or_create(
+                        ingredient_name=ing_search[0]
+                    )
+                    # add ingredient to product
+                    prod.ingredients.add(ing)
+                else:
+                    continue
 
             for allergen in allergens_hierarchy:
                 language = get_language(allergen)
