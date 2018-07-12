@@ -17,20 +17,24 @@ class AdditiveInline(admin.TabularInline):
     extra = 0
     verbose_name_plural = 'Additifs'
 
+
 class VitaminInline(admin.TabularInline):
     model = VitaminComposeProduct
     extra = 0
     verbose_name_plural = 'Vitamines'
+
 
 class NutrimentInline(admin.TabularInline):
     model = NutrimentComposeProduct
     extra = 0
     verbose_name_plural = 'Nutriments'
 
+
 class IngredientInline(admin.TabularInline):
     model = Product.ingredients.through
     extra = 0
     verbose_name_plural = 'Ingrédients'
+
 
 class AllergenInline(admin.TabularInline):
     model = Product.allergens.through
@@ -57,7 +61,11 @@ class ProductAdmin(admin.ModelAdmin):
 
     def get_readonly_fields(self, request, obj=None):
         if obj:  # editing existing object
-            return self.readonly_fields + ('product_name', 'image_url', 'url_off', 'barcode', 'nutrition_grade', )
+            return self.readonly_fields + (
+                'product_name', 'image_url',
+                'url_off', 'barcode',
+                'nutrition_grade',
+                )
         return self.readonly_fields
 
 
@@ -108,3 +116,10 @@ class AllergenAdmin(admin.ModelAdmin):
 class TraceAdmin(admin.ModelAdmin):
     fields = ('name',)
     ordering = ('name',)
+
+
+@admin.register(NutrimentComposeProduct)
+class NutrimentComposeProductAdmin(admin.ModelAdmin):
+    fields = ('nutriment_quantity',)
+    list_display = ('nutriment_quantity',)
+    ordering = ('nutriment_quantity', )
