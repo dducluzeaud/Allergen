@@ -25,7 +25,7 @@ SECRET_KEY = 'x-=s%#3&bl-s_a-^flcsw*fs6*o_s=r@o2_3mc=5l@_v$-xn)w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'rest_framework',
     'allergen',
 ]
 
@@ -82,7 +83,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'allergen',
         'USER': 'david',
-        'PASSWORD': '',
         'HOST': '',
         'PORT': '5432',
     }
