@@ -1,10 +1,10 @@
 from allergen.models import (Additive, Allergen, Category, Ingredient,
                              Nutriment, NutrimentComposeProduct, Product,
-                             Profile, SearchHistoric, Substitute, Trace,
-                             Translation, Vitamin, VitaminComposeProduct)
+                             Trace, Translation, Vitamin, VitaminComposeProduct)
+
 from django.core.management.base import BaseCommand
 
-from ._utils import (concat_dataframe, detect_lang, get_language,
+from ._utils import (concat_dataframe, get_language,
                      make_translation, slice_language)
 
 import re
@@ -33,7 +33,6 @@ class Command(BaseCommand):
             additives_tags = data.loc[index, 'additives_tags']
             allergens_hierarchy = data.loc[index, 'allergens_hierarchy']
             ingredients = data.loc[index, 'ingredients']
-            nutrient_levels = data.loc[index, 'nutrient_levels']
             nutriments = data.loc[index, 'nutriments']
             traces_hierarchy = data.loc[index, 'traces_hierarchy']
 
@@ -50,8 +49,6 @@ class Command(BaseCommand):
             if not prod_created:
                 pass
             else:
-            
-                # Reverse the list and insert category by parent
                 cat_length = len(categories_hierarchy)
                 for i in range(cat_length):
                     category = categories_hierarchy[i]
@@ -477,8 +474,8 @@ class Command(BaseCommand):
                             vitamin=vit_b1,
                             vitamin_quantity=quantity
                         )
-                    
-                    
+
+
                     # B2
                     elif k == 'vitamin-b2_label':
                         vit_b2, vit_b2_c = Vitamin.objects.get_or_create(
@@ -645,5 +642,3 @@ class Command(BaseCommand):
                             vitamin=vit_k,
                             vitamin_quantity=quantity
                         )
-
-
