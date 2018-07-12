@@ -8,8 +8,8 @@ from django.db import models
 class Product(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     product_name = models.CharField('nom du produit', max_length=255)
-    image_url = models.URLField("lien de l'image")
-    url_off = models.URLField('lien openfoodfacts')
+    image_url = models.URLField("lien de l'image", max_length=255)
+    url_off = models.URLField('lien openfoodfacts', max_length=255)
     barcode = models.BigIntegerField('code barre', db_index=True, unique=True)
     nutrition_grade = models.CharField('nutriscore', max_length=1)
     quantity = models.CharField('quantité', max_length=255)
@@ -89,7 +89,7 @@ class VitaminComposeProduct(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     vitamin = models.ForeignKey(
         'Vitamin', on_delete=models.SET_NULL, null=True)
-    vitamin_quantity = models.CharField(max_length=255)
+    vitamin_quantity = models.DecimalField(max_digits=12, decimal_places=6)
 
 
 class Nutriment(models.Model):
@@ -106,7 +106,7 @@ class NutrimentComposeProduct(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     nutriment = models.ForeignKey(
         'Nutriment', on_delete=models.SET_NULL, null=True)
-    nutriment_quantity = models.CharField(max_length=255)
+    nutriment_quantity = models.DecimalField(max_digits=12, decimal_places=6)
 
 
 class Ingredient(models.Model):
