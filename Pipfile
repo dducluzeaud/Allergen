@@ -9,6 +9,7 @@ django = "*"
 requests = "*"
 pandas = "*"
 googletrans = "*"
+django-rest-framework = "*"
 
 [dev-packages]
 coverage = "*"
@@ -16,6 +17,7 @@ django-debug-toolbar = "*"
 pylint = "*"
 "pep8" = "*"
 "autopep8" = "*"
+pygments = "*"
 
 [requires]
 python_version = "3.7"

@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'django-rest',
     'allergen',
+    'api.apps.ApiConfigs'
 ]
 
 MIDDLEWARE = [
