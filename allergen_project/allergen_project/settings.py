@@ -38,8 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+<<<<<<< HEAD
     'rest_framework',
+=======
+    'django-rest',
+>>>>>>> 3e8f20c6cec34e8afd9c1be2752a7dcceb080a6c
     'allergen',
+    'api.apps.ApiConfigs'
 ]
 
 MIDDLEWARE = [
