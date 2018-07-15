@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'rest_framework',
     'allergen',
-    'api.apps.ApiConfigs'
+
 ]
 
 MIDDLEWARE = [
