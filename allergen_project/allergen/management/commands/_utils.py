@@ -3,7 +3,6 @@ from typing import List
 import pandas as pd
 import requests
 from googletrans import Translator
-import string
 
 from .languages import LANGCODES
 
@@ -33,11 +32,10 @@ def make_translation(word: str) -> str:
             # translate word to french
             word = translator.translate(word, src=language, dest='fr').text
             # remove any type of punctuation
-            trans = str.maketrans(' ', ' ', string.punctuation)
-            return word.translate(trans)
+            return word.replace('-', ' ')
         except ValueError:
             # if invalid language source return word
-            return word
+            return word.replace('-', ' ')
 
 
 def detect_lang(word: str) -> str:
