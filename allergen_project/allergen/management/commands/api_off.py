@@ -729,3 +729,5 @@ class Command(BaseCommand):
                 continue
             except KeyError:
                 continue
+            except TypeError:
+                continue
