@@ -25,7 +25,7 @@ SECRET_KEY = 'x-=s%#3&bl-s_a-^flcsw*fs6*o_s=r@o2_3mc=5l@_v$-xn)w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
 
 
 # Application definition
@@ -38,13 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
-<<<<<<< HEAD
     'rest_framework',
-=======
-    'django-rest',
->>>>>>> 3e8f20c6cec34e8afd9c1be2752a7dcceb080a6c
     'allergen',
-    'api.apps.ApiConfigs'
+    'api'
 ]
 
 MIDDLEWARE = [
