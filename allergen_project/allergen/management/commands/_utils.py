@@ -81,27 +81,27 @@ def normalize_value(value: float, unit: str) -> float:
         value = float(value)
     # if value can't be cast the value must be incorrect
     # return 0
+        if unit.lower() == 'mg' or unit.lower() == 'kcal'or unit.lower() == 'ml':
+            return value
+        elif unit.lower() == 'kg':
+            value = value * 1000000
+        elif unit.lower() == 'g':
+            value = value * 1000
+        elif unit.lower() == 'µg':
+            value = value / 1000
+        elif unit.lower() == 'kj':
+            value = value * 239.005
+        elif unit.lower() == 'L':
+            value = value * 1000
+        elif unit == 'µL':
+            value = value / 1000
+        else:
+            value = 0.0
+        return value
     except ValueError:
         return 0.0
-
-    if unit.lower() == 'mg' or unit.lower() == 'kcal'or unit.lower() == 'ml':
-        return value
-    elif unit.lower() == 'kg':
-        value = value * 1000000
-    elif unit.lower() == 'g':
-        value = value * 1000
-    elif unit.lower() == 'µg':
-        value = value / 1000
-    elif unit.lower() == 'kj':
-        value = value * 239.005
-    elif unit.lower() == 'L':
-        value = value * 1000
-    elif unit == 'µL':
-        value = value / 1000
-    else:
-        value = 0.0
-    return value
-
+    except TypeError:
+        return 0.0
 
 class Singleton(type):
     """ Create a singleton"""
