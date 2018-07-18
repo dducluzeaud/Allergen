@@ -178,7 +178,7 @@ class Command(BaseCommand):
 
                         if k == 'fat_value':
                             fat, fat_c = Nutriment.objects.get_or_create(
-                                nutriment_name='graisses'
+                                nutriment_name='matière grasse'
                             )
 
                             quantity = normalize_value(
@@ -238,7 +238,7 @@ class Command(BaseCommand):
                             )
                         if k == 'saturated_fat_value':
                             sat_fat, sat_fat_c = Nutriment.objects.get_or_create(
-                                nutriment_name='graisses saturés'
+                                nutriment_name='matières grasses saturées'
                             )
 
                             quantity = normalize_value(
@@ -254,7 +254,7 @@ class Command(BaseCommand):
 
                         if k == 'polyunsaturated-fat_label':
                             poly, poly_c = Nutriment.objects.get_or_create(
-                                nutriment_name='graisses polyinsaturés'
+                                nutriment_name='matières grasses polyinsaturées'
                             )
                             quantity = normalize_value(
                                 nutriments['polyunsaturated-fat_value'],
@@ -269,7 +269,7 @@ class Command(BaseCommand):
 
                         elif k == 'monounsaturated-fat_label':
                             mono, mono_c = Nutriment.objects.get_or_create(
-                                nutriment_name='graisses monosaturés'
+                                nutriment_name='matières grasses monosaturées'
                             )
 
                             quantity = normalize_value(
