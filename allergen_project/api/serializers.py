@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from allergen.models import (Additive, Allergen, Category, Ingredient,
                              Nutriment, NutrimentComposeProduct, Product,
-                             Trace, Translation, Vitamin)
+                             Trace, Translation, Vitamin, VitaminComposeProduct)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -38,26 +38,41 @@ class TraceSerializer(serializers.ModelSerializer):
 class NutrimentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Nutriment
-        fields = ('nutriment_name',)
 
 
-class NutrimentComposeProductSerializer(serializers.ModelSerializer):
-    product_id = serializers.ReadOnlyField(source='product.id')
-    nutriment_id = serializers.ReadOnlyField(source='nutriment.id')
-    nutriment_quantity = serializers.ReadOnlyField(source='NutrimentComposeProduct.nutriment_quantity')
+class NutrimentComposeProductSerializer(serializers.HyperlinkedModelSerializer):
+    nutriment_name = serializers.ReadOnlyField(
+        source='nutriment.nutriment_name')
 
     class Meta:
         model = NutrimentComposeProduct
-        fields = ('product_id', 'nutriment_id', 'nutriment_quantity',)
+        fields = ('nutriment_name', 'nutriment_quantity',)
+
+
+class VitaminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vitamin
+        fields = ('vitamin_name', 'description', 'daily_quantity_m', 'daily_quantity_f', )
+
+
+class VitaminComposeProductSerializer(serializers.HyperlinkedModelSerializer):
+    vitamin_name = serializers.ReadOnlyField(source='vitamin.vitamin_name')
+
+    class Meta:
+        model = VitaminComposeProduct
+        fields = ('vitamin_name', 'vitamin_quantity',)
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    allergens = AllergenSerializer(read_only=True, many=True)
-    categories = CategorySerializer(read_only=True, many=True)
+    allergens = AllergenSerializer(many=True)
+    categories = CategorySerializer(many=True)
     ingredients = IngredientSerializer(many=True)
     additives = AdditiveSerializer(many=True)
     traces = TraceSerializer(many=True)
-    nutriments = NutrimentSerializer(many=True)
+    nutriments = NutrimentComposeProductSerializer(
+        source='nutrimentcomposeproduct_set', many=True)
+    vitamins = VitaminComposeProductSerializer(
+        source='vitamincomposeproduct_set', many=True)
 
     class Meta:
         model = Product
@@ -70,9 +85,8 @@ class ProductSerializer(serializers.ModelSerializer):
                   'categories',
                   'ingredients',
                   'nutriments',
-                  'allergens',
+                  'vitamins',
                   'additives',
+                  'allergens',
                   'traces',
                   )
-
-
