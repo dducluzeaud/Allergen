@@ -10,6 +10,8 @@ requests = "*"
 pandas = "*"
 googletrans = "*"
 django-rest-framework = "*"
+django-filter = "*"
+django-rest-swagger = "*"
 
 [dev-packages]
 coverage = "*"
@@ -17,12 +19,9 @@ django-debug-toolbar = "*"
 pylint = "*"
 "pep8" = "*"
 "autopep8" = "*"
-<<<<<<< HEAD:allergen_project/Pipfile
 "flake8" = "*"
 python-language-server = "*"
-=======
 pygments = "*"
->>>>>>> 3e8f20c6cec34e8afd9c1be2752a7dcceb080a6c:Pipfile
 
 [requires]
 python_version = "3.7"
