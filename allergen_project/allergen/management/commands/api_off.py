@@ -11,9 +11,6 @@ from ._utils import (get_language, make_translation,
 import re
 
 
-import re
-
-
 class Command(BaseCommand):
     """
     Query the openfoodfacts api and insert or update products in the database.
@@ -168,7 +165,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['energy_value'],
                                 nutriments['energy_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
@@ -184,7 +181,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['fat_value'],
                                 nutriments['fat_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
@@ -199,7 +196,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['protein_value'],
                                 nutriments['protein_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
@@ -214,7 +211,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['salt_value'],
                                 nutriments['salt_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
@@ -229,7 +226,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['sugar_value'],
                                 nutriments['sugar_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
@@ -244,7 +241,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['saturated_fat_value'],
                                 nutriments['saturated_fat_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
@@ -259,7 +256,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['polyunsaturated-fat_value'],
                                 nutriments['polyunsaturated-fat_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
@@ -275,7 +272,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['monounsaturated-fat_value'],
                                 nutriments['monounsaturated-fat_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
@@ -291,7 +288,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['omega-3-fat_value'],
                                 nutriments['omega-3-fat_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
@@ -322,7 +319,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['omega-9-fat_value'],
                                 nutriments['omega-9-fat_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
@@ -339,13 +336,13 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['calcium_value'],
                                 nutriments['calcium_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
                                 nutriment=cal,
                                 nutriment_quantity=quantity
-                                )
+                            )
 
                         # Cholesterol
                         elif k == 'cholesterol_label':
@@ -356,7 +353,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['cholesterol_value'],
                                 nutriments['cholesterol_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
@@ -372,7 +369,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['iron_value'],
                                 nutriments['iron_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
@@ -389,7 +386,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['fiber_value'],
                                 nutriments['fiber_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
@@ -406,7 +403,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['fructose_value'],
                                 nutriments['fructose_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
@@ -423,7 +420,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['gluten_value'],
                                 nutriments['gluten_unit']
-                                )
+                            )
 
                             NutrimentComposeProduct.objects.create(
                                 product=prod,
@@ -551,7 +548,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['vitamin-b2_value'],
                                 nutriments['vitamin-b2_unit']
-                                )
+                            )
 
                             VitaminComposeProduct.objects.get_or_create(
                                 product=prod,
@@ -568,7 +565,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['vitamin-pp_value'],
                                 nutriments['vitamin-pp_unit']
-                                )
+                            )
 
                             VitaminComposeProduct.objects.get_or_create(
                                 product=prod,
@@ -585,7 +582,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['pantothenic-acid_value'],
                                 nutriments['pantothenic-acid_unit']
-                                )
+                            )
 
                             VitaminComposeProduct.objects.get_or_create(
                                 product=prod,
@@ -602,7 +599,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['vitamin-b6_value'],
                                 nutriments['vitamin-b6_unit']
-                                )
+                            )
 
                             VitaminComposeProduct.objects.get_or_create(
                                 product=prod,
@@ -619,7 +616,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['biotin_value'],
                                 nutriments['biotin_unit']
-                                )
+                            )
 
                             VitaminComposeProduct.objects.get_or_create(
                                 product=prod,
@@ -636,7 +633,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['vitamin-b9_value'],
                                 nutriments['vitamin_unit']
-                                )
+                            )
 
                             VitaminComposeProduct.objects.get_or_create(
                                 product=prod,
@@ -653,7 +650,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['vitamin-b12_value'],
                                 nutriments['vitamin-b12_unit']
-                                )
+                            )
 
                             VitaminComposeProduct.objects.get_or_create(
                                 product=prod,
@@ -670,7 +667,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['vitamin-c_value'],
                                 nutriments['vitamin-c_unit']
-                                )
+                            )
 
                             VitaminComposeProduct.objects.get_or_create(
                                 product=prod,
@@ -687,7 +684,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['vitamin-d_value'],
                                 nutriments['vitamin-d_unit']
-                                )
+                            )
 
                             VitaminComposeProduct.objects.get_or_create(
                                 product=prod,
@@ -704,7 +701,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['vitamin-e_value'],
                                 nutriments['vitamin-e_unit']
-                                )
+                            )
 
                             VitaminComposeProduct.objects.get_or_create(
                                 product=prod,
@@ -721,7 +718,7 @@ class Command(BaseCommand):
                             quantity = normalize_value(
                                 nutriments['vitamin-k_value'],
                                 nutriments['vitamin-unit']
-                                )
+                            )
 
                             VitaminComposeProduct.objects.get_or_create(
                                 product=prod,
