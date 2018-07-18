@@ -3,7 +3,7 @@ from allergen.models import (Additive, Allergen, Category, Ingredient,
                              Trace, Translation, Vitamin, VitaminComposeProduct)
 
 from django.core.management.base import BaseCommand
-from django.db import DataError
+from django.db.utils import DataError
 
 from ._utils import (get_language, make_translation,
                      slice_language, normalize_value, ProductDataFrame)
@@ -96,6 +96,7 @@ class Command(BaseCommand):
                         # they might have incorrect char
                         regex = re.compile(r'^[e|E]\d{3,4}')
                         add_search = re.search(regex, additive)
+
                         if add_search:
                             add, add_created = Additive.objects.get_or_create(
                                 additive_name=add_search[0])
@@ -122,7 +123,7 @@ class Command(BaseCommand):
                                 })
 
                             ing, ing_created = Ingredient.objects.get_or_create(
-                                ingredient_name=trans_ing
+                                ingredient_name=trans_ing.translated_name
                             )
                             # add ingredient to product
                             prod.ingredients.add(ing)
@@ -730,4 +731,6 @@ class Command(BaseCommand):
             except DataError:
                 continue
             except KeyError:
+                continue
+            except TypeError:
                 continue

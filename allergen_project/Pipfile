@@ -21,7 +21,6 @@ pylint = "*"
 "autopep8" = "*"
 "flake8" = "*"
 python-language-server = "*"
-pygments = "*"
 
 [requires]
 python_version = "3.7"
