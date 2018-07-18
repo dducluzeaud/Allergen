@@ -5,8 +5,11 @@ from allergen.models import (Additive, Allergen, Category, Ingredient,
 from django.core.management.base import BaseCommand
 from django.db.utils import DataError
 
-from ._utils import (get_language, make_translation, slice_language,
-                     normalize_value, ProductDataFrame)
+from ._utils import (get_language, make_translation,
+                     slice_language, normalize_value, ProductDataFrame)
+
+import re
+
 
 import re
 
