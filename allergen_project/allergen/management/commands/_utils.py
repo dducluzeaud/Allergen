@@ -155,7 +155,7 @@ class ProductDataFrame:
         in the column.
         """
         nb_pages = self._count_pages() + 1
-        for page in range(1, 20):
+        for page in range(1, nb_pages):
             products = self._generate_products(page)
             df = pd.DataFrame(products)
             # Select columns from the dataframe
