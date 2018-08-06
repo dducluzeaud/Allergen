@@ -1,78 +1,11 @@
-from typing import List
+from typing import List, Iterator, Union
 
 import pandas as pd
 import requests
+import string
 from googletrans import Translator
 
 from .languages import LANGCODES
-
-
-def make_translation(word: str) -> str:
-    """
-    Translate a word using GoogleTrans library
-    The language might be indicate in the 2 first character
-    :param word: string
-    :param language: string
-    :return: word string
-    """
-    if word == 'en:spreads':
-        # better translation for the word spreads
-        return 'Pate à tartiner'
-    elif word == 'en:sweets-spreads':
-        return 'Pâte à tartiner sucrée'
-    elif word == 'en:plant-based-spreads':
-        return 'Pâte à tartiner végétal'
-    else:
-        try:
-            translator = Translator()
-            # take the language indication
-            language = get_language(word)
-            # remove language indicator
-            word = slice_language(word)
-            # translate word to french
-            word = translator.translate(word, src=language, dest='fr').text
-            # remove any type of punctuation
-            return word.replace('-', ' ')
-        except ValueError:
-            # if invalid language source return word
-            return word.replace('-', ' ')
-
-
-def detect_lang(word: str) -> str:
-    """Detect language with googletrans"""
-    translator = Translator()
-    # detect language
-    tr = translator.detect(word)
-    for l in LANGCODES.values():
-        if tr.lang == l:
-            return tr.lang
-    return 'unkonwn'
-
-
-def slice_language(word: str) -> str:
-    if len(word) > 3 and word[2] == ':':
-        word = word[3:]
-    return word
-
-
-def get_language(word: str) -> str:
-    """
-    Return the language of the word if its has a language indicator.
-    If its has not googletrans library will detect its language
-    """
-    if len(slice_language(word)) == len(word):
-        # the word has no language indicator
-        lang = detect_lang(word)
-    else:
-        lang = word[:2]
-        translator = Translator()
-        tr = translator.detect(word)
-        # if language detected is different
-        # the confidence of the translator is above 90 %
-        # take the language from the translator
-        if tr.confidence > 0.9 and tr.lang != lang:
-            lang = tr.lang
-    return lang
 
 
 def normalize_value(value: float, unit: str) -> float:
@@ -81,7 +14,7 @@ def normalize_value(value: float, unit: str) -> float:
         value = float(value)
     # if value can't be cast the value must be incorrect
     # return 0
-        if unit.lower() == 'mg' or unit.lower() == 'kcal'or unit.lower() == 'ml':
+        if unit.lower() == 'mg' or unit.lower() == 'kcal' or unit.lower() == 'ml':
             return value
         elif unit.lower() == 'kg':
             value = value * 1000000
@@ -91,7 +24,7 @@ def normalize_value(value: float, unit: str) -> float:
             value = value / 1000
         elif unit.lower() == 'kj':
             value = value * 239.005
-        elif unit.lower() == 'L':
+        elif unit.lower() == 'l':
             value = value * 1000
         elif unit == 'µL':
             value = value / 1000
@@ -102,34 +35,101 @@ def normalize_value(value: float, unit: str) -> float:
         return 0.0
     except TypeError:
         return 0.0
-
-class Singleton(type):
-    """ Create a singleton"""
-    _instances = {}
-
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super(
-                Singleton, cls).__call__(*args, **kwargs)
-        return cls._instances[cls]
+    except AttributeError:
+        return 0.0
 
 
-class ProductDataFrame(metaclass=Singleton):
+class DataTranslation:
+
+    def __init__(self) -> None:
+        self.translator = Translator()
+
+    def make_translation(self, word: str) -> Union[bool, str]:
+        """
+        Translate a word using GoogleTrans library
+        The language might be indicate in the 2 first character
+        :param word: string
+        :param language: string
+        :return: word string, or False if the word can't be translated
+        """
+        if word == 'en:spreads':
+            # better translation for the word spreads
+            return 'Pate à tartiner'
+        elif word == 'en:sweets-spreads':
+            return 'Pâte à tartiner sucrée'
+        elif word == 'en:plant-based-spreads':
+            return 'Pâte à tartiner végétal'
+        elif word == ' ':
+            return False
+        else:
+            # take the language indication
+            language = self.get_language(word)
+            if not language:
+                return False
+            else:
+                # remove language indicator
+                word = self.slice_language(word)
+                # translate word to french
+                word = self.translator.translate(
+                    word,
+                    src=language,
+                    dest='fr'
+                ).text
+                # remove any type of punctuation
+                return word.replace('-', ' ')
+
+    def detect_lang(self, word: str) -> Union[bool, str]:
+        """Detect language with googletrans"""
+        # detect language
+        tr = self.translator.detect(word)
+        if tr.confidence < 0.5:
+            return False
+        else:
+            for l in LANGCODES.values():
+                if tr.lang == l:
+                    return tr.lang
+            return False
+
+    def slice_language(self, word: str) -> str:
+        if len(word) > 3 and word[2] == ':':
+            return word[3:]
+        return word
+
+    def get_language(self, word: str) -> str:
+        """
+        Return the language of the word if its has a language indicator.
+        If its has not googletrans library will detect its language
+        """
+        if len(self.slice_language(word)) == len(word):
+            # the word has no language indicator
+            lang = self.detect_lang(word)
+        else:
+            lang = word[:2]
+            tr = self.translator.detect(word)
+            # if language detected is different
+            # the confidence of the translator is above 90 %
+            # take the language from the translator
+            if tr.confidence > 0.9 and tr.lang != lang:
+                lang = tr.lang
+        return lang
+
+
+class ProductDataFrame:
     """
     Generate a dataframe concatenating all pages founds related to
     the category on openfoodfacts.
     """
 
-    def __init__(self, category: str):
+    def __init__(self, category: str) -> None:
         self.category = category
 
-    def _count_pages(self, category: str) -> int:
+    def _count_pages(self) -> int:
         """
         Count pages for a category
         :return: page_number, integer
         """
         url = 'https://fr.openfoodfacts.org/categorie/'
-        url += self.category + '.json'
+        url += f'{self.category}.json'
         json_file = requests.get(url).json()
         page_number = json_file['count'] // 20
         if json_file['count'] % 20 != 0:
@@ -143,23 +143,22 @@ class ProductDataFrame(metaclass=Singleton):
         :return products['products']: json data containing all informations
         """
         url = 'https://fr.openfoodfacts.org/categorie/'
-        url += self.category + '/' + str(page) + '.json'
+        url += f'{self.category}/{str(page)}.json'
         products = requests.get(url).json()
         return products['products']
 
-    def _generate_dataframe(self):
+    def _generate_dataframe(self) -> Iterator:
         """
         Query openfoodfacts and concatenate the dataframe
         for every page in the category. The dataframe select
         column and remove empty row if some values are missing
         in the column.
         """
-        nb_pages = self._count_pages(self.category) + 1
-        for page in range(1, nb_pages):
-            print(page)
+        nb_pages = self._count_pages() + 1
+        for page in range(1, 20):
             products = self._generate_products(page)
             df = pd.DataFrame(products)
-            # Select columns
+            # Select columns from the dataframe
             try:
                 df = df[[
                     'product_name',
@@ -190,6 +189,12 @@ class ProductDataFrame(metaclass=Singleton):
             except KeyError:
                 pass
 
-    def concat_dataframe(self):
+    def concat_dataframe(self) -> object:
+        """Unpack the generator and concatenate all dataframe from it.
+        
+        Returns:
+           Dataframe : dataframe with all value extracted by page.
+        """
+
         generator = self._generate_dataframe()
         return pd.concat([x for x in generator], ignore_index=True)
