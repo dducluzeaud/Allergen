@@ -5,8 +5,7 @@ from allergen.models import (Additive, Allergen, Category, Ingredient,
 from django.core.management.base import BaseCommand
 from django.db.utils import DataError
 
-from ._utils import (get_language, make_translation,
-                     slice_language, normalize_value, ProductDataFrame)
+from ._utils import (normalize_value, ProductDataFrame, DataTranslation)
 
 import re
 
@@ -17,32 +16,35 @@ class Command(BaseCommand):
     """
 
     def handle(self, *args, **kwargs):
+        
 
         prod = ProductDataFrame('Aliments et boissons à base de végétaux')
         data = prod.concat_dataframe()
 
-        for index in data.index.values:
+        for index, row in data.iterrows():
             """
             Fetch data in the dataframe
             """
-            product_name = data.loc[index, 'product_name']
-            code = data.loc[index, 'code']
-            image_small_url = data.loc[index, 'image_small_url']
-            url = data.loc[index, 'url']
-            nutrition_grades = data.loc[index, 'nutrition_grades']
-            quantity = data.loc[index, 'quantity']
-            categories_hierarchy = data.loc[index, 'categories_hierarchy']
-            additives_tags = data.loc[index, 'additives_tags']
-            allergens_hierarchy = data.loc[index, 'allergens_hierarchy']
-            ingredients = data.loc[index, 'ingredients']
-            nutriments = data.loc[index, 'nutriments']
-            traces_hierarchy = data.loc[index, 'traces_hierarchy']
+            product_name = row['product_name']
+            code = row['code']
+            image_small_url = row['image_small_url']
+            url = row['url']
+            nutrition_grades = row['nutrition_grades']
+            quantity = row['quantity']
+            categories_hierarchy = row['categories_hierarchy']
+            additives_tags = row['additives_tags']
+            allergens_hierarchy = row['allergens_hierarchy']
+            ingredients = row['ingredients']
+            nutriments = row['nutriments']
+            traces_hierarchy = row['traces_hierarchy']
 
             try:
+                trans = DataTranslation()
+                prod_trans = trans.make_translation(product_name)
                 prod, prod_created = Product.objects.get_or_create(
                     barcode=code,
                     defaults={
-                        'product_name': make_translation(product_name),
+                        'product_name': prod_trans,
                         'image_url': image_small_url,
                         'url_off': url,
                         'nutrition_grade': nutrition_grades,
@@ -52,43 +54,46 @@ class Command(BaseCommand):
                 if not prod_created:
                     continue
                 else:
-
                     # Reverse the list and insert category by parent
                     cat_length = len(categories_hierarchy)
                     for i in range(cat_length):
                         category = categories_hierarchy[i]
                         # Search if the french traduction has already been made
                         # otherwise make and insert the traduction
-                        language = get_language(category)
+                        cat_t = trans.make_translation(category)
+                        if not cat_t:
+                            # if the trad is not known, ignore the value
+                            pass
+                        else:
+                            cat_l = trans.get_language(category)
+                            trans_category, created = Translation.objects.get_or_create(
+                                name_origin=trans.slice_language(category),
+                                defaults={
+                                    'translated_name': cat_t,
+                                    'language': cat_l
+                                }
+                            )
+                            # Insert in the database if the category does not exists
+                            cat, created = Category.objects.get_or_create(
+                                category_name=trans_category.translated_name)
 
-                        trans_category, created = Translation.objects.get_or_create(
-                            name_origin=slice_language(category),
-                            defaults={
-                                'translated_name': make_translation(category),
-                                'language': language
-                            }
-                        )
-                        # Insert in the database if the category does not exists
-                        cat, created = Category.objects.get_or_create(
-                            category_name=trans_category.translated_name)
+                            # Add relation to the product
+                            prod.categories.add(cat)
 
-                        # Add relation to the product
-                        prod.categories.add(cat)
+                            # at least one category have been created
+                            if i >= 1:
+                                parent_category = trans.slice_language(
+                                    categories_hierarchy[i-1])
+                                trans_parent_category = Translation.objects.get(
+                                    name_origin=parent_category)
+                                parent_category = Category.objects.get(
+                                    category_name=trans_parent_category.translated_name)
+                                # add relation to M2M relation
+                                cat.hierarchy.add(parent_category)
 
-                        # at least one category have been created
-                        if i >= 1:
-                            parent_category = slice_language(
-                                categories_hierarchy[i - 1])
-                            trans_parent_category = Translation.objects.get(
-                                name_origin=parent_category)
-                            parent_category = Category.objects.get(
-                                category_name=trans_parent_category.translated_name)
-                            # add relation to M2M relation
-                            cat.hierarchy.add(parent_category)
-
-                    for additive in additives_tags:
+                    for additive in additives_tags:                            
                         # additive might have a language indicator
-                        additive = slice_language(additive)
+                        additive = trans.slice_language(additive)
                         # additives have a construction pattern
                         # they might have incorrect char
                         regex = re.compile(r'^[e|E]\d{3,4}')
@@ -97,7 +102,6 @@ class Command(BaseCommand):
                         if add_search:
                             add, add_created = Additive.objects.get_or_create(
                                 additive_name=add_search[0])
-
                             # add additive to the product
                             prod.additives.add(add)
                         else:
@@ -112,49 +116,60 @@ class Command(BaseCommand):
                         if not ing_search:
                             continue
                         else:
-                            trans_ing, ing_c = Translation.objects.get_or_create(
-                                name_origin=slice_language(category),
-                                defaults={
-                                    'translated_name': make_translation(ing_search[0]),
-                                    'language': language
-                                })
+                            ing_t = trans.make_translation(ing_search[0])
+                            if not ing_t:
+                                pass
+                            else:
+                                ing_l = trans.get_language(ing_search[0])
+                                trans_ing, ing_c = Translation.objects.get_or_create(
+                                    name_origin=trans.slice_language(category),
+                                    defaults={
+                                        'translated_name': ing_t,
+                                        'language': ing_l
+                                    })
 
-                            ing, ing_created = Ingredient.objects.get_or_create(
-                                ingredient_name=trans_ing.translated_name
-                            )
-                            # add ingredient to product
-                            prod.ingredients.add(ing)
+                                ing, ing_created = Ingredient.objects.get_or_create(
+                                    ingredient_name=trans_ing.translated_name
+                                )
+                                # add ingredient to product
+                                prod.ingredients.add(ing)
 
                     for allergen in allergens_hierarchy:
-                        language = get_language(allergen)
+                        all_t = trans.make_translation(allergen)
+                        if not all_t:
+                            pass
+                        else:
+                            all_l = trans.get_language(allergen)
+                            t_all, t_all_created = Translation.objects.get_or_create(
+                                name_origin=trans.slice_language(allergen),
+                                defaults={
+                                    'translated_name': all_t,
+                                    'language': all_l
+                                })
+                            # Insert in the database if the category does not exists
+                            alg, alg_created = Allergen.objects.get_or_create(
+                                allergen_name=t_all.translated_name)
 
-                        t_all, t_all_created = Translation.objects.get_or_create(
-                            name_origin=slice_language(allergen),
-                            defaults={
-                                'translated_name': make_translation(allergen),
-                                'language': language
-                            })
-                        # Insert in the database if the category does not exists
-                        alg, alg_created = Allergen.objects.get_or_create(
-                            allergen_name=t_all.translated_name)
-
-                        # Add relation to the product
-                        prod.allergens.add(alg)
+                            # Add relation to the product
+                            prod.allergens.add(alg)
 
                     for trace in traces_hierarchy:
-                        lang = get_language(trace)
+                        tra_t = trans.make_translation(trace)
+                        if not tra_t:
+                            pass
+                        else:
+                            tra_l = trans.get_language(trace)
+                            t_tra, t_tra_created = Translation.objects.get_or_create(
+                                name_origin=trans.slice_language(trace),
+                                defaults={
+                                    'translated_name': tra_t,
+                                    'language': tra_l
+                                })
+                            # Insert in the database if the category does not exists
+                            tra, tra_created = Trace.objects.get_or_create(
+                                name=t_tra.translated_name)
 
-                        t_tra, t_tra_created = Translation.objects.get_or_create(
-                            name_origin=slice_language(trace),
-                            defaults={
-                                'translated_name': make_translation(trace),
-                                'language': lang
-                            })
-                        # Insert in the database if the category does not exists
-                        tra, tra_created = Trace.objects.get_or_create(
-                            name=t_tra.translated_name)
-
-                        prod.traces.add(tra)
+                            prod.traces.add(tra)
 
                     for k, v in nutriments.items():
                         if k == 'energy_value':
