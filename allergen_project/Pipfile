@@ -21,6 +21,8 @@ pylint = "*"
 "autopep8" = "*"
 "flake8" = "*"
 python-language-server = "*"
+mypy = "*"
+requests-mock = "*"
 
 [requires]
 python_version = "3.7"
