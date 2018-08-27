@@ -84,9 +84,9 @@ WSGI_APPLICATION = 'allergen_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'allergen',
-        'USER': 'david',
-        'HOST': '',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
