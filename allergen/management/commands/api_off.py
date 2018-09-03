@@ -1,6 +1,7 @@
 from allergen.models import (Additive, Allergen, Category, Ingredient,
                              Nutriment, NutrimentComposeProduct, Product,
-                             Trace, Translation, Vitamin, VitaminComposeProduct)
+                             Trace, Translation, Vitamin, VitaminComposeProduct,
+                             )
 
 from django.core.management.base import BaseCommand
 from django.db.utils import DataError
@@ -16,8 +17,6 @@ class Command(BaseCommand):
     """
 
     def handle(self, *args, **kwargs):
-        
-
         prod = ProductDataFrame('Aliments et boissons à base de végétaux')
         data = prod.concat_dataframe()
 
@@ -91,7 +90,7 @@ class Command(BaseCommand):
                                 # add relation to M2M relation
                                 cat.hierarchy.add(parent_category)
 
-                    for additive in additives_tags:                            
+                    for additive in additives_tags:
                         # additive might have a language indicator
                         additive = trans.slice_language(additive)
                         # additives have a construction pattern
@@ -284,7 +283,7 @@ class Command(BaseCommand):
                                 nutriment_name='matières grasses monosaturées'
                             )
 
-                            quantity = normalize_value(
+                            quantity = normalize_value(#
                                 nutriments['monounsaturated-fat_value'],
                                 nutriments['monounsaturated-fat_unit']
                             )

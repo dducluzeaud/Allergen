@@ -23,6 +23,7 @@ from allergen import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(('api.urls', 'api'), namespace='api')),
+    path('', views.index, name='index')
 ]
 
 if settings.DEBUG:

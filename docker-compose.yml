@@ -1,4 +1,4 @@
-version: '3.6'
+version: '3.7'
 
 services:
   db:
@@ -19,4 +19,4 @@ services:
       - db
 
 volumes:
-  postgres_data:
+    postgres_data:

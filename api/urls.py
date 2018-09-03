@@ -21,5 +21,3 @@ urlpatterns = [
     path('doc/', schema_view)
 
 ]
-
-
