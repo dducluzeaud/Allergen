@@ -12,8 +12,5 @@ services:
 
 env: DJANGO_SETTINGS_MODULE=allergen_project.settings.travis
 
-script:
-    - ./manage.py test
-
 after_success:
   - codecov
