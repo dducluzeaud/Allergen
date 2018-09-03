@@ -23,6 +23,7 @@ pylint = "*"
 python-language-server = "*"
 mypy = "*"
 requests-mock = "*"
+codecov = "*"
 
 [requires]
 python_version = "3.7"
