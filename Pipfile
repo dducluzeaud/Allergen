@@ -1,0 +1,29 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+"psycopg2-binary" = "*"
+requests = "*"
+pandas = "*"
+googletrans = "*"
+django-rest-framework = "*"
+django-filter = "*"
+django-rest-swagger = "*"
+
+[dev-packages]
+coverage = "*"
+django-debug-toolbar = "*"
+pylint = "*"
+"pep8" = "*"
+"autopep8" = "*"
+"flake8" = "*"
+python-language-server = "*"
+mypy = "*"
+requests-mock = "*"
+codecov = "*"
+
+[requires]
+python_version = "3.7"
