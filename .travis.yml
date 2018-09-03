@@ -12,4 +12,5 @@ services:
 env: DJANGO_SETTINGS_MODULE=allergen_project.settings.travis
 
 after_success:
-  - codecov
+    - docker run web python manage.py tests
+    - codecov
