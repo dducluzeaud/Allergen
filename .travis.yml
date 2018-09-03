@@ -2,15 +2,18 @@ sudo: required
 
 language: python
 
-before_script:
-    - docker-compose up
-
 services:
-    - postgresql
     - docker
+
+before_install:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y install docker-ce
+  - docker-compose up --build -d
 
 env: DJANGO_SETTINGS_MODULE=allergen_project.settings.travis
 
 after_success:
-    - docker run web python manage.py tests
+    - docker run allergen_web python manage.py tests
     - codecov
