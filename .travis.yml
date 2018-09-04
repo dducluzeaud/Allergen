@@ -19,10 +19,11 @@ script:
     - docker-compose version
 
 before_script:
-    - sudo docker run allergen_web python manage.py migrate
+    - docker build allergen_web
+    - docker run allergen_web python manage.py migrate
 
 script:
-    - sudo docker run allergen_web python manage.py tests
+    - docker run allergen_web python manage.py tests
 
 after_success:
     - codecov
