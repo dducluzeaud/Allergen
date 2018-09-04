@@ -20,9 +20,10 @@ script:
 
 before_script:
     - docker-compose up --build -d
+    - docker-compose ps
 
 script:
-    - sudo docker run allergen_web python manage.py tests
+    - docker-compose run web python manage.py tests
 
 after_success:
     - codecov
