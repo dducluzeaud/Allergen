@@ -23,6 +23,7 @@ before_script:
 
 script:
     - docker-compose run web coverage run ./manage.py test
+    - docker-compose run web coverage report
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)
