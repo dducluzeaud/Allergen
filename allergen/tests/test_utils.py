@@ -144,6 +144,3 @@ class TestProductDataFrame(TestCase):
                     "product_name": "test_2"
                 }]
             )
-
-    def test_generate_products(self):
-        pass
