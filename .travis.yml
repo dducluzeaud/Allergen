@@ -19,8 +19,7 @@ script:
     - docker-compose version
 
 before_script:
-    - sudo docker-compose up
-
+      - docker-compose up --build -d
 
 script:
     - sudo docker run allergen_web python manage.py tests
