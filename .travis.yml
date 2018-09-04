@@ -7,7 +7,7 @@ services:
 
 env:
     - DJANGO_SETTINGS_MODULE=allergen_project.settings.travis
-  - DOCKER_COMPOSE_VERSION=1.4.2
+    - DOCKER_COMPOSE_VERSION=1.6
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
@@ -18,10 +18,11 @@ before_install:
 before_script:
     - docker version
     - docker-compose version
+    - sudo docker-compose up
 
 
 script:
-    - docker run allergen_web python manage.py tests
+    - sudo docker run allergen_web python manage.py tests
 
 after_success:
     - codecov
