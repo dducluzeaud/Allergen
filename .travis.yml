@@ -18,7 +18,7 @@ before_install:
 before_script:
     - docker version
     - docker-compose version
-    - docker-compose up --build -d
+
 
 script:
     - docker run allergen_web python manage.py tests
