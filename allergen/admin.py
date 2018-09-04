@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import (Product, Category, Additive, Vitamin,
                      VitaminComposeProduct, Nutriment,
                      NutrimentComposeProduct, Ingredient,
-                     Allergen, Trace, Substitute, Profile)
+                     Allergen, Trace)
 
 
 class CategoryInline(admin.TabularInline):
