@@ -105,7 +105,7 @@ class TestProductDataFrame(TestCase):
     def setUpTestData(cls):
         cls.category = 'Aliments et boissons à base de végétaux'
         cls.data = ProductDataFrame(cls.category)
-        
+
     def setUp(self):
         self.mock_url = f'https://fr.openfoodfacts.org/categorie/'
         self.mock_url += f'Aliments%20et%20boissons%20%C3%A0%20base%20de%20v%C3%A9g%C3%A9taux'
@@ -135,7 +135,7 @@ class TestProductDataFrame(TestCase):
                     status_code=200
                 )
         self.assertEqual(
-            self.data._generate_products(1), 
+            self.data._generate_products(1),
             [
                 {
                     "product_name": "test"
@@ -146,4 +146,4 @@ class TestProductDataFrame(TestCase):
             )
 
     def test_generate_products(self):
-        
+        pass
