@@ -1,17 +1,8 @@
 from django.contrib import admin
 
-from .models import (
-    Product,
-    Category,
-    Additive,
-    Vitamin,
-    VitaminComposeProduct,
-    Nutriment,
-    NutrimentComposeProduct,
-    Ingredient,
-    Allergen,
-    Trace,
-)
+from .models import (Additive, Allergen, Category, Ingredient, Nutriment,
+                     NutrimentComposeProduct, Product, Trace, Vitamin,
+                     VitaminComposeProduct)
 
 
 class CategoryInline(admin.TabularInline):
@@ -132,10 +123,3 @@ class AllergenAdmin(admin.ModelAdmin):
 class TraceAdmin(admin.ModelAdmin):
     fields = ("name",)
     ordering = ("name",)
-
-
-@admin.register(NutrimentComposeProduct)
-class NutrimentComposeProductAdmin(admin.ModelAdmin):
-    fields = ("nutriment_quantity",)
-    list_display = ("nutriment_quantity",)
-    ordering = ("nutriment_quantity",)
