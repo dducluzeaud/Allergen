@@ -18,6 +18,8 @@ schema_view = get_swagger_view(title='Allergen API')
 urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('doc/', schema_view)
+    path('doc/', schema_view),
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls'))
 
 ]
