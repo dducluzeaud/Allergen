@@ -1,12 +1,15 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets
 
-from .serializers import AdditiveSerializer, AllergenSerializer, \
-    CategorySerializer, IngredientSerializer, \
-    NutrimentComposeProductSerializer, NutrimentSerializer, ProductSerializer, \
-    TraceSerializer, VitaminComposeProductSerializer, VitaminSerializer
-from allergen.models import Additive, Allergen, Category, Ingredient, \
-    Nutriment, Product, Trace, Vitamin
-from django_filters.rest_framework import DjangoFilterBackend
+from allergen.models import (Additive, Allergen, Category, Ingredient,
+                             Nutriment, Product, Trace, Vitamin)
+
+from .serializers import (AdditiveSerializer, AllergenSerializer,
+                          CategorySerializer, IngredientSerializer,
+                          NutrimentComposeProductSerializer,
+                          NutrimentSerializer, ProductSerializer,
+                          TraceSerializer, VitaminComposeProductSerializer,
+                          VitaminSerializer)
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -85,3 +88,8 @@ class VitaminViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.OrderingFilter,)
     ordering = ('vitamin_name',)
     http_method_names = ['get']
+
+
+class NutrimentViewSet(viewsets.ModelViewSet):
+    queryset = Nutriment.objects.all()
+    serializer_class = NutrimentSerializer
