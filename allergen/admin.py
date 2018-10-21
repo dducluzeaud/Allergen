@@ -95,7 +95,7 @@ class VitaminAdmin(admin.ModelAdmin):
 
 @admin.register(Nutriment)
 class NutrimentAdmin(admin.ModelAdmin):
-    fields = ('nutriment_name', 'description',
+    fields = ('nutriment_name', 'description', 'image',
               ('daily_quantity_m', 'daily_quantity_f'),)
     ordering = ('nutriment_name',)
 

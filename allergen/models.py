@@ -95,6 +95,7 @@ class VitaminComposeProduct(models.Model):
 class Nutriment(models.Model):
     nutriment_name = models.CharField(max_length=255, unique=True)
     description = models.CharField(max_length=255)
+    image = models.URLField(blank=True)
     daily_quantity_m = models.CharField(max_length=255)
     daily_quantity_f = models.CharField(max_length=255)
 
