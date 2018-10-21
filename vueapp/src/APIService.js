@@ -1,7 +1,7 @@
 import axios from 'axios';
 const API_URL = 'http://0.0.0.0:8000/api';
 
-export class APIServiceProduct{
+export class APIServiceProduct {
     async getProducts() {
         const url = `${API_URL}/product/`;
         return axios.get(url).then(response => response.data);
@@ -9,7 +9,7 @@ export class APIServiceProduct{
 }
 
 
-export class APIServiceNutriment{
+export class APIServiceNutriment {
     async getNutriments() {
         const url = `${API_URL}/nutriment/`;
         return axios.get(url).then(response => response.data)
@@ -18,11 +18,11 @@ export class APIServiceNutriment{
     async getNutriment(pk) {
         const url = `${API_URL}/nutriment/${pk}`;
         return axios.get(url).then(response => response.data)
-    } 
+    }
 }
 
 
-export class APIServiceAdditives{
+export class APIServiceAdditives {
 
     async getAdditives(params) {
         try {
