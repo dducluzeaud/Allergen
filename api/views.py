@@ -64,7 +64,7 @@ class AdditiveViewSet(viewsets.ModelViewSet):
                        filters.OrderingFilter,)
     filter_fields = ('additive_name', 'risk')
     ordering = ('additive_name')
-    ordering_fields = ('risk',)
+    ordering_fields = ('risk', 'additive_name')
     http_method_names = ['get']
 
 
