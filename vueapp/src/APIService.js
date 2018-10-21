@@ -1,6 +1,7 @@
 import axios from 'axios';
 const API_URL = 'http://0.0.0.0:8000/api';
 
+
 export class APIServiceProduct {
     async getProducts() {
         const url = `${API_URL}/product/`;
