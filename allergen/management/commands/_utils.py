@@ -52,7 +52,7 @@ class DataTranslation:
         :param language: string
         :return: word string, or False if the word can't be translated
         """
-        import ipdb; ipdb.set_trace()
+
         if word == 'en:spreads':
             # better translation for the word spreads
             return 'Pate à tartiner'
@@ -192,7 +192,7 @@ class ProductDataFrame:
 
     def concat_dataframe(self) -> object:
         """Unpack the generator and concatenate all dataframe from it.
-        
+
         Returns:
            Dataframe : dataframe with all value extracted by page.
         """
