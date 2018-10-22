@@ -11,12 +11,12 @@ pandas = "*"
 django-rest-framework = "*"
 django-filter = "*"
 django-rest-swagger = "*"
-googletrans = "*"
 django-rest-auth = "*"
 django-allauth = "*"
 djangorestframework-jwt = "*"
 django-cors-headers = "*"
 ipdb = "*"
+py-translator = "*"
 
 [dev-packages]
 coverage = "*"
