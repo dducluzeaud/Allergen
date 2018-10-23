@@ -29,6 +29,7 @@ python-language-server = "*"
 mypy = "*"
 requests-mock = "*"
 codecov = "*"
+black = "*"
 
 [requires]
 python_version = "3.7"
