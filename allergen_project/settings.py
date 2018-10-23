@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'allergen',
-    'api',
     'rest_framework_swagger',
 ]
 

@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
-from allergen.models import (Additive, Allergen, Category, Ingredient,
-                             Nutriment, NutrimentComposeProduct, Product,
-                             Trace, Translation, Vitamin, VitaminComposeProduct)
+from .models import (Additive, Allergen, Category, Ingredient,
+                     Nutriment, NutrimentComposeProduct, Product,
+                     Trace, Translation, Vitamin, VitaminComposeProduct)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -38,7 +38,8 @@ class TraceSerializer(serializers.ModelSerializer):
 class NutrimentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Nutriment
-        fields = ('id', 'nutriment_name', 'description', 'image', 'daily_quantity_m', 'daily_quantity_f', )
+        fields = ('id', 'nutriment_name', 'description', 'image',
+                  'daily_quantity_m', 'daily_quantity_f', )
 
 
 class NutrimentComposeProductSerializer(serializers.HyperlinkedModelSerializer):
@@ -53,7 +54,8 @@ class NutrimentComposeProductSerializer(serializers.HyperlinkedModelSerializer):
 class VitaminSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vitamin
-        fields = ('vitamin_name', 'description', 'daily_quantity_m', 'daily_quantity_f', )
+        fields = ('vitamin_name', 'description',
+                  'daily_quantity_m', 'daily_quantity_f', )
 
 
 class VitaminComposeProductSerializer(serializers.HyperlinkedModelSerializer):
