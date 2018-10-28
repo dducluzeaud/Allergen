@@ -1,7 +1,10 @@
-from django.urls import include, path
+from django.urls import include, path, re_path
+
 from rest_framework import routers
 from rest_framework.documentation import include_docs_urls
 from rest_framework_swagger.views import get_swagger_view
+
+from rest_auth.registration.views import VerifyEmailView, RegisterView
 
 from . import views
 
@@ -18,8 +21,5 @@ schema_view = get_swagger_view(title='Allergen API')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('doc/', schema_view),
-    path('rest-auth/', include('rest_auth.urls')),
-    path('rest-auth/registration/', include('rest_auth.registration.urls'))
 ]
