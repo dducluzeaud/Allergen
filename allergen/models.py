@@ -176,11 +176,11 @@ class Profile(models.Model):
     weight = models.IntegerField('poids')
     age = models.IntegerField('âge')
     basal_metabolism = models.IntegerField('métabolisme basal')
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     ingredients = models.ManyToManyField('Ingredient')
     products = models.ManyToManyField('Product')
     allergens = models.ManyToManyField('Allergen')
     traces = models.ManyToManyField('Trace')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
 class SearchHistoric(models.Model):
