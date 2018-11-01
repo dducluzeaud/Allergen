@@ -16,9 +16,14 @@
                 </div>
                 <div id="navbarMenu" class="navbar-menu" v-bind:class="{ 'is-active' : showNav }">
                     <div class="navbar-end">
-                        <router-link :to="{name: 'Home'}" class="navbar-item">Home</router-link>
+                        <!-- <div v-if='authUser'>
+                            <router-link :to="{name: 'Profile'}" class="navbar-item">Profile</router-link>
+                        </div> -->
+                        <div>
+                            <router-link :to="{name: 'Login'}" class="navbar-item">Connexion</router-link>
+                        </div>
                         <router-link :to="{name: 'Additives'}" class="navbar-item">Additifs</router-link>
-                        <router-link :to="{name: 'Product'}" class="navbar-item">Product</router-link>
+                        <router-link :to="{name: 'ProductList'}" class="navbar-item">Product</router-link>
                         <div class="navbar-item has-dropdown is-hoverable">
                             <div class="navbar-item has-dropdown"><a class="navbar-link">Nutriment</a>
                                 <div class="navbar-dropdown is-boxed">
@@ -37,7 +42,8 @@
 </template>
 
 <script>
-import { APIServiceNutriment } from "../APIService";
+import { APIServiceNutriment } from "@/api/APIService";
+import {mapGetters} from 'vuex'
 
 const APINutriment = new APIServiceNutriment();
 
@@ -58,6 +64,11 @@ export default {
     },
     mounted() {
         this.getNutriments();
+    },
+    computed: {
+        ...mapGetters({
+            'user': 'authUser'
+        })
     }
 };
 </script>
