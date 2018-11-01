@@ -31,7 +31,7 @@
 <script>
     import {
         APIServiceNutriment
-    } from '../APIService';
+    } from '@/api/APIService';
 
     const APINutriment = new APIServiceNutriment();
 
@@ -52,7 +52,7 @@
         },
         methods: {
             getNutriment() {
-                APINutriment.getNutriment(this.$route.params.pk).then((data) => {
+                APINutriment.getNutriment(this.$route.params.pk).then(data => {
                     this.nutriment = data
                 });
             },
