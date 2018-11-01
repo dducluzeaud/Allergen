@@ -38,13 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'rest_auth.registration',
-    'debug_toolbar',
+
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+
+    'debug_toolbar',
     'corsheaders',
     'django_filters',
     'allergen',
@@ -145,7 +148,7 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        'rest_framework.permissions.AllowAny',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
@@ -171,3 +174,7 @@ CORS_ORIGIN_WHITELIST = (
     # TODO - set this properly for production
     'localhost:8080',
 )
+
+
+# Verification email for developement
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
