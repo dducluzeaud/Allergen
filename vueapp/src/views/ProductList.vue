@@ -14,7 +14,7 @@
 <script>
     import {
         APIServiceProduct
-    } from '../APIService';
+    } from '@/api/APIService';
     
     const APIProduct = new APIServiceProduct();
 
