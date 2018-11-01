@@ -42,7 +42,7 @@
 <script>
     import {
         APIServiceAdditives
-    } from '../APIService';
+    } from '@/api/APIService';
 
     const APIAdditives = new APIServiceAdditives();
 
