@@ -5,8 +5,6 @@
             
             paginated
             backend-pagination
-            :total="total"
-            :per-page="perPage"
             @page-change="onPageChange"
             
             backend-sorting

@@ -9,6 +9,12 @@
 
             </div>
         </div>
+        <b-pagination
+            :total="numberOfProducts"
+            :current.sync="page"
+            :order="is-centered"
+            @change="onPageChange">
+        </b-pagination>
     </div>
     <div v-else>
         <p>No data</p>
@@ -29,6 +35,7 @@
                 numberOfProducts: 0,
                 nextPage: '',
                 previousPage: '',
+                page: 1,
                 errors: []
             };
         },
@@ -40,12 +47,19 @@
         },
         methods: {
             getProducts(){
-                APIProduct.getProducts().then((data) => {
+                const params = [
+                    `?offset=${(this.page - 1) * 20}`
+                ]
+                APIProduct.getProducts(params).then((data) => {
                     this.products = data.results
                     this.numberOfProducts = data.count
                     this.nextPage = data.next
                     this.previousPage = data.previous
                 });
+            },
+            onPageChange(page) {
+                this.page = page
+                this.getProducts()
             },
         },
     }
