@@ -1,5 +1,5 @@
 from django.urls import include, path, reverse
-from rest_framework import APITestCase, URLPatternsTestCase
+from rest_framework.test import APITestCase, URLPatternsTestCase
 
 
 class ProductTestCase(APITestCase, URLPatternsTestCase):
