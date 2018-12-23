@@ -30,6 +30,7 @@ mypy = "*"
 requests-mock = "*"
 codecov = "*"
 black = "*"
+isort = "*"
 
 [requires]
 python_version = "3.7"
