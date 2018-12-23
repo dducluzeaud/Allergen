@@ -44,8 +44,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_auth',
 
-    'allauth',
-    'allauth.account',
+
     'rest_auth.registration',
 
     'debug_toolbar',
@@ -162,20 +161,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 20
 }
-
-# Json web Token for authentication
-# Used with django-rest-auth
-REST_USE_JWT = True
-
-# allow registration with django-rest-auth
-SITE_ID = 1
-
 # cors headers
 CORS_ORIGIN_WHITELIST = (
     # TODO - set this properly for production
     'localhost:8080',
 )
-
-
-# Verification email for developement
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

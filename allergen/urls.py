@@ -5,8 +5,6 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework_swagger.views import get_swagger_view
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
-from rest_auth.registration.views import VerifyEmailView, RegisterView
-
 from . import views
 
 router = routers.DefaultRouter()
@@ -23,9 +21,7 @@ schema_view = get_swagger_view(title='Allergen API')
 urlpatterns = [
     path('', include(router.urls)),
     path('doc/', schema_view),
-    path('rest-auth/', include('rest_auth.urls')),
-    path('rest-auth/registration/', include('rest_auth.registration.urls')),
     # JWT auth
-    path('rest-auth/obtain_token/', obtain_jwt_token),
-    path('rest-auth/refresh_token/', refresh_jwt_token),
+    path('auth/obtain_token/', obtain_jwt_token),
+    path('auth/refresh_token/', refresh_jwt_token),
 ]
