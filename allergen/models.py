@@ -16,9 +16,13 @@ class Product(models.Model):
     categories = models.ManyToManyField('Category')
     additives = models.ManyToManyField('Additive')
     vitamins = models.ManyToManyField(
-        'Vitamin', through='VitaminComposeProduct')
+        'Vitamin',
+        through='VitaminComposeProduct'
+    )
     nutriments = models.ManyToManyField(
-        'Nutriment', through='NutrimentComposeProduct')
+        'Nutriment',
+        through='NutrimentComposeProduct'
+    )
     ingredients = models.ManyToManyField('Ingredient')
     substitutes = models.ManyToManyField('self',
                                          through='Substitute',

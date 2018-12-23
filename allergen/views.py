@@ -1,9 +1,8 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets
 
-from .models import (Additive, Allergen, Category, Ingredient,
-                     Nutriment, Product, Trace, Vitamin)
-
+from .models import (Additive, Allergen, Category, Ingredient, Nutriment,
+                     Product, Trace, Vitamin)
 from .serializers import (AdditiveSerializer, AllergenSerializer,
                           CategorySerializer, IngredientSerializer,
                           NutrimentComposeProductSerializer,
