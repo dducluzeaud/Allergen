@@ -111,8 +111,3 @@ class VitaminViewSet(ModelViewSet):
 class NutrimentViewSet(ModelViewSet):
     queryset = Nutriment.objects.all()
     serializer_class = NutrimentSerializer
-
-
-class UserViewSet(ModelViewSet):
-    serializer_class = UserSerializer
-    permission_classes = (IsAuthenticated,)
