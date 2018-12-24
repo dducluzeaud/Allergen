@@ -1,7 +1,6 @@
-from django.urls import include, path, re_path
+from django.urls import include, path
 
 from rest_framework import routers
-from rest_framework.documentation import include_docs_urls
 from rest_framework_swagger.views import get_swagger_view
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
@@ -20,9 +19,9 @@ router.register(r"user", views.UserViewSet, base_name="user")
 schema_view = get_swagger_view(title="Allergen API")
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('doc/', schema_view),
+    path("", include(router.urls)),
+    path("doc/", schema_view),
     # JWT auth
-    path('auth/obtain_token/', obtain_jwt_token),
-    path('auth/refresh_token/', refresh_jwt_token),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
 ]
