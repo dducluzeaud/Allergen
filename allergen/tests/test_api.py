@@ -3,10 +3,6 @@ from rest_framework.test import APITestCase, URLPatternsTestCase
 
 
 class ProductTestCase(APITestCase, URLPatternsTestCase):
-    urlpatterns = [
-        path('/api/product/', include(allergens.urls))
-    ]
-
     def test_detail_product(self):
         pass
 
