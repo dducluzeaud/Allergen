@@ -2,7 +2,6 @@ from django.urls import include, path
 
 from rest_framework import routers
 from rest_framework_swagger.views import get_swagger_view
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 from . import views
 

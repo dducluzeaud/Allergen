@@ -1,10 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
-
 from rest_framework import filters
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticated
 
 from .models import (
     Additive,
@@ -15,7 +11,6 @@ from .models import (
     Product,
     Vitamin,
 )
-
 from .serializers import (
     AdditiveSerializer,
     AllergenSerializer,
@@ -24,7 +19,6 @@ from .serializers import (
     NutrimentSerializer,
     ProductSerializer,
     VitaminSerializer,
-    UserSerializer,
 )
 
 
