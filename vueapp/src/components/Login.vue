@@ -1,36 +1,49 @@
 <template lang="html">
   <form class="login form">
-    <div class="field">
-      <label for="id_username">Username</label>
-      <input
-        v-model="username"
-        type="text"
-        placeholder="Username"
-        autofocus="autofocus"
-        maxlength="150"
-        id="id_username">
+    <div class="modal-card" style="width: auto">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Connexion</p>
+        </header>
+        <section class="modal-card-body">
+            <b-field label="username" for="id_username">
+                <b-input
+                    v-model="username"
+                    type="text"
+                    placeholder="Username"
+                    autofocus="autofocus"
+                    maxlength="150"
+                    id="id_username"
+                    required>
+                </b-input>
+            </b-field>
+            <b-field label="Password" for="id_password">
+                <b-input
+                    v-model="password"
+                    type="password"
+                    placeholder="Password"
+                    id="id_password"
+                    password-reveal
+                    required>
+                </b-input>
+            </b-field>
+          <div class="has-text-centered">Vous n'avez pas de compte ?
+            <a href="#" @click="openSignup()">Inscrivez-vous !</a>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button" type="button" @click="$parent.close()">Fermer</button>
+            <button class="button is-primary" type="submit" @click.prevent="authenticate">Se connecter</button>
+        </footer>
     </div>
-    <div class="field">
-      <label for="id_password">Password</label>
-      <input
-        v-model="password"
-        type="password"
-        placeholder="Password"
-        id="id_password">
-    </div>
-    <button
-      @click.prevent="authenticate"
-      class="button primary"
-      type="submit">
-      Log In
-    </button>
   </form>
 </template>
 
 <script>
 import axios from 'axios'
+import SignUpModal from '@/components/SignUp'
 
 export default {
+  name: 'LoginModal',
   data() {
     return {
       username: '',
@@ -38,6 +51,15 @@ export default {
     }
   },
   methods: {
+    openSignup() {
+      this.$emit('close')
+      this.$modal.open({
+        parent: this,
+        component: SignUpModal,
+        hasModalCArd: true,
+        props: {}
+      })
+    },
     authenticate() {
       const payload = {
         username: this.username,
@@ -51,7 +73,6 @@ export default {
           const base = {
             baseURL: this.$store.state.endpoints.baseUrl,
             headers: {
-              // Set your Authorization to 'JWT', not Bearer!!!
               Authorization: `JWT ${this.$store.state.jwt}`,
               'Content-Type': 'application/json'
             },
@@ -64,7 +85,7 @@ export default {
           // JWT and can plug in something else.
           const axiosInstance = axios.create(base)
           axiosInstance({
-            url: '/user/',
+            url: '/users/me/',
             method: 'get',
             params: {}
           }).then(response => {
@@ -72,7 +93,8 @@ export default {
               authUser: response.data,
               isAuthenticated: true
             })
-            this.$router.push({ name: 'Nutriment' })
+            this.$emit('close')
+            this.$router.push({ name: 'Profile' })
           })
         })
         .catch(error => {
@@ -84,3 +106,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#signup {
+  text-align: center;
+}
+</style>
