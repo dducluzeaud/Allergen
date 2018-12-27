@@ -7,11 +7,13 @@ import Products from '@/views/ProductList.vue'
 import Nutriment from '@/views/Nutriment.vue'
 import Additives from '@/views/Additives.vue'
 import Login from '@/components/Login.vue'
+import SignUp from '@/components/SignUp.vue'
 import Profile from '@/views/Profile.vue'
+import store from '@/store.js'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -46,14 +48,33 @@ export default new Router({
     {
       path: '/profile',
       name: 'Profile',
-      component: Profile
+      component: Profile,
+      meta: { requiresAuth: true }
     },
     {
       path: '*',
       name: 'NotFound',
-      redirect: {name: 'Home'}
+      redirect: { name: 'Home' }
     }
   ],
-  mode: 'history',
+  mode: 'history'
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!store.getters.isAuthenticated) {
+      next({
+        name: 'Login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
+export default router
