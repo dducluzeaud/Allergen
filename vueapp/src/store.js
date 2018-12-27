@@ -15,9 +15,9 @@ export default new Vuex.Store({
     jwt: localStorage.getItem('token'),
     endpoints: {
       // TODO: Remove hardcoding of dev endpoints
-      obtainJWT: 'http://0.0.0.0:8000/api/v1/auth/obtain_token/',
-      refreshJWT: 'http://0.0.0.0:8000/api/v1/auth/refresh_token/',
-      baseUrl: 'http://0.0.0.0:8000/api/v1/'
+      obtainJWT: 'http://0.0.0.0:8000/api/v1/auth/jwt/create/',
+      refreshJWT: 'http://0.0.0.0:8000/api/v1/auth/jwt/refresh/',
+      baseUrl: 'http://0.0.0.0:8000/api/v1/auth/'
     }
   },
 
@@ -34,5 +34,14 @@ export default new Vuex.Store({
       localStorage.removeItem('token')
       state.jwt = null
     }
+  },
+  actions: {
+    login({ commit }) {
+      commit('setAuthUser')
+    }
+  },
+  getters: {
+    isAuthenticated: state => !!state.jwt,
+    authUser: state => state
   }
 })
