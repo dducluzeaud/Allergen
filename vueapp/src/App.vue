@@ -2,23 +2,21 @@
   <div id="app">
     <section class="hero is-fullheight is-default is-bold">
       <TheNavbar/>
-      <div class="container">
-        <router-view/>
-      </div>
+      <router-view/>
       <TheFooter/>
     </section>
   </div>
 </template>
 
 <script>
-  import TheNavbar from '@/components/TheNavbar'
-  import TheFooter from '@/components/TheFooter'
-  export default {
-    components: {
-      TheNavbar,
-      TheFooter
-    }
+import TheNavbar from '@/components/TheNavbar'
+import TheFooter from '@/components/TheFooter'
+export default {
+  components: {
+    TheNavbar,
+    TheFooter
   }
+}
 </script>
 
 <style>
