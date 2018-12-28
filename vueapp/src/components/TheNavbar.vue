@@ -36,9 +36,15 @@
           </div>
           <router-link :to="{name: 'Home'}" class="navbar-item">FAQ</router-link>
           <div class="navbar-end">
-            <div v-if="isAuthenticated">
-              <router-link :to="{name: 'Profile'}" class="navbar-item">Profile</router-link>
-              <a href="#" @click="openLogout()">Logout</a>
+            <div class="navbar-item" v-if="isAuthenticated">
+              <router-link class="logout" :to="{name: 'Profile'}">
+                <b-icon pack="fas" icon="user" size="is-small"></b-icon>
+                <p>Mon compte</p>
+              </router-link>
+              <a class="logout" @click="openLogout()">
+                <b-icon pack="fas" icon="sign-out-alt" size="is-small"></b-icon>
+                <p>Déconnexion</p>
+              </a>
             </div>
             <div v-else>
               <a class="button is-primary is-rounded is-outlined" @click="openLogin()">Connexion</a>
@@ -56,6 +62,7 @@ import { APIServiceNutriment } from '@/api/APIService'
 import { mapGetters } from 'vuex'
 import LoginModal from '@/components/Login'
 import LogoutModal from '@/components/Logout'
+import SignUpModal from '@/components/SignUp'
 
 const APINutriment = new APIServiceNutriment()
 
@@ -72,6 +79,14 @@ export default {
       this.$modal.open({
         parent: this,
         component: LoginModal,
+        hasModalCArd: true,
+        props: {}
+      })
+    },
+    openSignup() {
+      this.$modal.open({
+        parent: this,
+        component: SignUpModal,
         hasModalCArd: true,
         props: {}
       })
@@ -100,9 +115,22 @@ export default {
 </script>
 
 <style scoped>
+a {
+  color: #255219;
+}
 .button {
   margin: 5px;
 }
+
+.fas {
+  margin: 5px;
+}
+
+.logout {
+  padding: 5px;
+  font-size: 11px;
+}
+
 #nav-logo {
   max-height: None;
   border: None;
