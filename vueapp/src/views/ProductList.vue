@@ -29,7 +29,12 @@
         </div>
       </div>
       <br>
-      <b-pagination :total="numberOfProducts" :current.sync="page"></b-pagination>
+      <b-pagination
+        :total="numberOfProducts"
+        :current.sync="page"
+        :per-page="perPage"
+        @click="console.log(props.current)"
+      ></b-pagination>
     </div>
   </div>
 </template>
@@ -55,8 +60,12 @@ export default {
     this.getProducts()
   },
   watch: {
-    $route: 'getProducts'
+    $route: 'getProducts',
+    page() {
+      this.getProducts()
+    }
   },
+
   methods: {
     getProducts() {
       const params = [`offset=${(this.page - 1) * 20}`]
@@ -73,11 +82,6 @@ export default {
           this.numberOfProducts = 0
           throw error
         })
-    },
-    onPageChange(page) {
-      console.log(this.page)
-      this.page = page
-      this.getProducts()
     }
   }
 }
