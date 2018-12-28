@@ -1,6 +1,6 @@
 <template>
   <div class="hero-body">
-    <div class="container has-text-centered">
+    <div class="container has-text-centered" v-if="nutriment.description">
       <div class="columns is-vcentered">
         <div class="column is-5">
           <figure class="image is-4by3">
