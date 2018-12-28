@@ -11,9 +11,9 @@ import '@/assets/css/style.css'
 Vue.use(Buefy)
 Vue.config.productionTip = false
 
-Vue.filter('capitalize', function(value) {
+Vue.filter('capitalize', value => {
   if (!value) return ''
-  value = value.toString()
+  value = value.toString().toLowerCase()
   return value.charAt(0).toUpperCase() + value.slice(1)
 })
 
