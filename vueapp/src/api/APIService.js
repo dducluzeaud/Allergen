@@ -2,9 +2,13 @@ import axios from 'axios'
 const API_URL = 'http://0.0.0.0:8000/api/v1'
 
 export class APIServiceProduct {
-  async getProducts() {
-    const url = `${API_URL}/product/`
-    return axios.get(url).then(response => response.data)
+  async getProducts(params) {
+    try {
+      const url = `${API_URL}/product/?${params}`
+      return await axios.get(url).then(response => response.data)
+    } catch (error) {
+      return error
+    }
   }
 }
 
