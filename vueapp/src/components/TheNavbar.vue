@@ -9,8 +9,8 @@
           <div
             id="navbarBurger"
             class="navbar-burger burger dropdown"
-            v-on:click="showNav = !showNav"
-            v-bind:class="{ 'is-active' : showNav }"
+            @click="showNav = !showNav"
+            :class="{ 'is-active' : showNav }"
             data-target="navbarMenu"
           >
             <span></span>
@@ -20,16 +20,17 @@
           </div>
         </div>
         <div id="navbarMenu" class="navbar-menu" v-bind:class="{ 'is-active' : showNav }">
+          <router-link :to="{name: 'ProductList'}" class="navbar-item">Produits</router-link>
           <router-link :to="{name: 'Additives'}" class="navbar-item">Additifs</router-link>
-          <router-link :to="{name: 'ProductList'}" class="navbar-item">Product</router-link>
           <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">Nutriment</a>
+            <a class="navbar-link">Nutriments</a>
             <div class="navbar-dropdown is-boxed">
               <div v-for="nutriment in nutriments" :key="nutriment.id">
                 <router-link
                   :to="{name: 'Nutriment', params: { pk: nutriment.id}}"
                   class="navbar-item"
                   replace
+                  v-if="nutriment.description"
                 >{{nutriment.nutriment_name | capitalize}}</router-link>
               </div>
             </div>
