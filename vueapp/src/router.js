@@ -7,7 +7,6 @@ import Products from '@/views/ProductList.vue'
 import Nutriment from '@/views/Nutriment.vue'
 import Additives from '@/views/Additives.vue'
 import Login from '@/components/Login.vue'
-import SignUp from '@/components/SignUp.vue'
 import Profile from '@/views/Profile.vue'
 import store from '@/store.js'
 
