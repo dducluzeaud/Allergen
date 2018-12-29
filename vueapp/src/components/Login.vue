@@ -94,7 +94,10 @@ export default {
               isAuthenticated: true
             })
             this.$emit('close')
-            this.$router.push({ name: 'Profile' })
+            this.$router.push({
+              name: 'Profile',
+              params: { username: this.username }
+            })
           })
         })
         .catch(error => {

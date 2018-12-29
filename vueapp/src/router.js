@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Home from '@/views/Home.vue'
 import About from '@/views/About.vue'
 import Products from '@/views/ProductList.vue'
+import ProductDetail from '@/views/ProductDetail.vue'
 import Nutriment from '@/views/Nutriment.vue'
 import Additives from '@/views/Additives.vue'
 import Login from '@/components/Login.vue'
@@ -30,6 +31,11 @@ const router = new Router({
       component: Products
     },
     {
+      path: '/product/:barcode',
+      name: 'ProductDetail',
+      component: ProductDetail
+    },
+    {
       path: '/nutriment/:pk/',
       name: 'Nutriment',
       component: Nutriment
@@ -45,7 +51,7 @@ const router = new Router({
       component: Login
     },
     {
-      path: '/profile',
+      path: '/profile/:username',
       name: 'Profile',
       component: Profile,
       meta: { requiresAuth: true }
