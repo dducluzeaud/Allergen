@@ -15,21 +15,12 @@ class Product(models.Model):
     quantity = models.CharField('quantité', max_length=255)
     categories = models.ManyToManyField('Category')
     additives = models.ManyToManyField('Additive')
-    vitamins = models.ManyToManyField(
-        'Vitamin',
-        through='VitaminComposeProduct'
-    )
-    nutriments = models.ManyToManyField(
-        'Nutriment',
-        through='NutrimentComposeProduct'
-    )
+    vitamins = models.ManyToManyField('Vitamin', through='VitaminComposeProduct')
+    nutriments = models.ManyToManyField('Nutriment', through='NutrimentComposeProduct')
     ingredients = models.ManyToManyField('Ingredient')
-    substitutes = models.ManyToManyField('self',
-                                         through='Substitute',
-                                         through_fields=(
-                                             'origin', 'replacement'),
-                                         symmetrical=False
-                                         )
+    substitutes = models.ManyToManyField(
+        'self', through='Substitute', through_fields=('origin', 'replacement'), symmetrical=False
+    )
     allergens = models.ManyToManyField('Allergen')
     traces = models.ManyToManyField('Trace')
 
@@ -65,8 +56,7 @@ class Additive(models.Model):
 
     additive_name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
-    risk = models.IntegerField(
-        choices=[x.value for x in Risk], null=True, blank=True)
+    risk = models.IntegerField(choices=[x.value for x in Risk], null=True, blank=True)
     max_permissible_dose = models.CharField(max_length=255)
 
     def __str__(self):
@@ -91,8 +81,7 @@ class Vitamin(models.Model):
 
 class VitaminComposeProduct(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    vitamin = models.ForeignKey(
-        'Vitamin', on_delete=models.SET_NULL, null=True)
+    vitamin = models.ForeignKey('Vitamin', on_delete=models.SET_NULL, null=True)
     vitamin_quantity = models.DecimalField(max_digits=12, decimal_places=6)
 
 
@@ -109,8 +98,7 @@ class Nutriment(models.Model):
 
 class NutrimentComposeProduct(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    nutriment = models.ForeignKey(
-        'Nutriment', on_delete=models.SET_NULL, null=True)
+    nutriment = models.ForeignKey('Nutriment', on_delete=models.SET_NULL, null=True)
     nutriment_quantity = models.DecimalField(max_digits=12, decimal_places=6)
 
 
@@ -142,25 +130,19 @@ class Trace(models.Model):
 
 
 class Substitute(models.Model):
-    origin = models.ForeignKey(Product,
-                               on_delete=models.CASCADE,
-                               related_name='origin',
-                               verbose_name='produit original'
-                               )
-    replacement = models.ForeignKey(Product,
-                                    on_delete=models.CASCADE,
-                                    related_name='replacement',
-                                    verbose_name='produit de substitution'
-                                    )
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True, verbose_name='utilisateur')
+    origin = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='origin', verbose_name='produit original'
+    )
+    replacement = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='replacement',
+        verbose_name='produit de substitution',
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, verbose_name='utilisateur')
 
     def __str__(self):
-        return str({
-            "origin": self.origin,
-            "replacement": self.replacement,
-            "user": self.user
-        })
+        return str({"origin": self.origin, "replacement": self.replacement, "user": self.user})
 
     class Meta:
         verbose_name = 'Substitut'
