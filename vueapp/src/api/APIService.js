@@ -10,6 +10,15 @@ export class APIServiceProduct {
       return error
     }
   }
+
+  async getProductDetail(barcode) {
+    try {
+      const url = `${API_URL}/product/?barcode=${barcode}`
+      return await axios.get(url).then(response => response.data)
+    } catch (error) {
+      return error
+    }
+  }
 }
 
 export class APIServiceNutriment {
