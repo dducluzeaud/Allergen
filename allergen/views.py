@@ -33,6 +33,7 @@ class ProductViewSet(ModelViewSet):
     serializer_class = ProductSerializer
     filter_backends = (DjangoFilterBackend, filters.OrderingFilter)
     filter_fields = ("product_name", "barcode", "nutrition_grade")
+    ordering = "nutrition_grade"
     ordering_fields = ("product_name", "barcode", "nutrition_grade")
     http_method_names = ["get"]
 
