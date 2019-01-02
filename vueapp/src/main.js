@@ -14,6 +14,12 @@ Vue.config.productionTip = false
 Vue.filter('capitalize', value => {
   if (!value) return ''
   value = value.toString().toLowerCase()
+  if (value.length > 43) {
+    value.substring(39)
+    const space = value.lastIndexOf(' ')
+    value.substring(space)
+    value = `${value} ...`
+  }
   return value.charAt(0).toUpperCase() + value.slice(1)
 })
 
