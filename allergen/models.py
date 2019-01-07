@@ -149,23 +149,10 @@ class Substitute(models.Model):
 
 
 class Profile(models.Model):
-    class Sexe(Enum):
-        male = ('m', 'Homme')
-        female = ('f', 'Femme')
-
-        @classmethod
-        def get_value(cls, member):
-            return cls[member].value[0]
-
-    sexe = models.CharField(max_length=1, choices=[x.value for x in Sexe])
-    height = models.IntegerField('taille')
-    weight = models.IntegerField('poids')
-    age = models.IntegerField('âge')
-    basal_metabolism = models.IntegerField('métabolisme basal')
-    ingredients = models.ManyToManyField('Ingredient')
-    products = models.ManyToManyField('Product')
-    allergens = models.ManyToManyField('Allergen')
-    traces = models.ManyToManyField('Trace')
+    ingredients = models.ManyToManyField('Ingredient', blank=True)
+    products = models.ManyToManyField('Product', blank=True)
+    allergens = models.ManyToManyField('Allergen', blank=True)
+    traces = models.ManyToManyField('Trace', blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 
