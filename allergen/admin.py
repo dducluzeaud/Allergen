@@ -1,8 +1,20 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 
-from .models import (Additive, Allergen, Category, Ingredient, Nutriment,
-                     NutrimentComposeProduct, Product, Trace, Vitamin,
-                     VitaminComposeProduct)
+from .models import (
+    Additive,
+    Allergen,
+    Category,
+    Ingredient,
+    Nutriment,
+    NutrimentComposeProduct,
+    Product,
+    Trace,
+    Vitamin,
+    VitaminComposeProduct,
+    Profile,
+)
 
 
 class CategoryInline(admin.TabularInline):
@@ -47,11 +59,17 @@ class TraceInline(admin.TabularInline):
     verbose_name_plural = "Traces"
 
 
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    verbose_name_plural = 'Profile'
+    fk_name = 'user'
+
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ("product_name", "barcode", "nutrition_grade")
-    fields = ("product_name", "image_url", "url_off",
-              "barcode", "nutrition_grade")
+    fields = ("product_name", "image_url", "url_off", "barcode", "nutrition_grade")
     inlines = [
         CategoryInline,
         AdditiveInline,
@@ -95,15 +113,13 @@ class AdditiveAdmin(admin.ModelAdmin):
 
 @admin.register(Vitamin)
 class VitaminAdmin(admin.ModelAdmin):
-    fields = ("vitamin_name", "description",
-              ("daily_quantity_m", "daily_quantity_f"))
+    fields = ("vitamin_name", "description", ("daily_quantity_m", "daily_quantity_f"))
     ordering = ("vitamin_name",)
 
 
 @admin.register(Nutriment)
 class NutrimentAdmin(admin.ModelAdmin):
-    fields = ('nutriment_name', 'description', 'image',
-              ('daily_quantity_m', 'daily_quantity_f'),)
+    fields = ('nutriment_name', 'description', 'image', ('daily_quantity_m', 'daily_quantity_f'))
     ordering = ('nutriment_name',)
 
 
@@ -123,3 +139,16 @@ class AllergenAdmin(admin.ModelAdmin):
 class TraceAdmin(admin.ModelAdmin):
     fields = ("name",)
     ordering = ("name",)
+
+
+class CustomUserAdmin(UserAdmin):
+    inlines = (ProfileInline,)
+
+    def get_inline_instances(self, request, obj=None):
+        if not obj:
+            return list()
+        return super(CustomUserAdmin, self).get_inline_instances(request, obj)
+
+
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
