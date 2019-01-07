@@ -1,8 +1,6 @@
-from rest_framework.serializers import (
-    ModelSerializer,
-    HyperlinkedModelSerializer,
-    ReadOnlyField,
-)
+from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer, ReadOnlyField
+
+from django.contrib.auth.models import User
 
 from .models import (
     Additive,
@@ -12,6 +10,7 @@ from .models import (
     Nutriment,
     NutrimentComposeProduct,
     Product,
+    Profile,
     Trace,
     Vitamin,
     VitaminComposeProduct,
@@ -72,12 +71,7 @@ class NutrimentComposeProductSerializer(HyperlinkedModelSerializer):
 class VitaminSerializer(ModelSerializer):
     class Meta:
         model = Vitamin
-        fields = (
-            "vitamin_name",
-            "description",
-            "daily_quantity_m",
-            "daily_quantity_f",
-        )
+        fields = ("vitamin_name", "description", "daily_quantity_m", "daily_quantity_f")
 
 
 class VitaminComposeProductSerializer(HyperlinkedModelSerializer):
@@ -94,12 +88,8 @@ class ProductSerializer(ModelSerializer):
     ingredients = IngredientSerializer(many=True)
     additives = AdditiveSerializer(many=True)
     traces = TraceSerializer(many=True)
-    nutriments = NutrimentComposeProductSerializer(
-        source="nutrimentcomposeproduct_set", many=True
-    )
-    vitamins = VitaminComposeProductSerializer(
-        source="vitamincomposeproduct_set", many=True
-    )
+    nutriments = NutrimentComposeProductSerializer(source="nutrimentcomposeproduct_set", many=True)
+    vitamins = VitaminComposeProductSerializer(source="vitamincomposeproduct_set", many=True)
 
     class Meta:
         model = Product
@@ -118,3 +108,21 @@ class ProductSerializer(ModelSerializer):
             "allergens",
             "traces",
         )
+
+
+class ProfileSerializer(ModelSerializer):
+    products = ProductSerializer(many=True)
+    ingredients = IngredientSerializer(many=True)
+    allergens = AllergenSerializer(many=True)
+
+    class Meta:
+        model = Profile
+        fields = ("ingredients", "products", "allergens")
+
+
+class UserSerializer(HyperlinkedModelSerializer):
+    profile = ProfileSerializer(required=True)
+
+    class Meta:
+        model = User
+        fields = ("username", "first_name", "last_name", "email", "profile")
