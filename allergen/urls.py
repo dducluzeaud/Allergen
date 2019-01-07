@@ -13,6 +13,7 @@ router.register(r"allergen", views.AllergenViewSet, base_name="allergen")
 router.register(r"additive", views.AdditiveViewSet, base_name="additive")
 router.register(r"vitamin", views.VitaminViewSet, base_name="vitamin")
 router.register(r"nutriment", views.NutrimentViewSet, base_name="nutriment")
+router.register(r"profile", views.UserViewSet, base_name="profile")
 
 schema_view = get_swagger_view(title="Allergen API")
 

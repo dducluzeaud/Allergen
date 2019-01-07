@@ -1,16 +1,10 @@
 from django_filters.rest_framework import DjangoFilterBackend
+from django.contrib.auth.models import User
 from rest_framework import filters
 from rest_framework.viewsets import ModelViewSet
 
-from .models import (
-    Additive,
-    Allergen,
-    Category,
-    Ingredient,
-    Nutriment,
-    Product,
-    Vitamin,
-)
+from .models import Additive, Allergen, Category, Ingredient, Nutriment, Product, Vitamin, Profile
+
 from .serializers import (
     AdditiveSerializer,
     AllergenSerializer,
@@ -19,6 +13,8 @@ from .serializers import (
     NutrimentSerializer,
     ProductSerializer,
     VitaminSerializer,
+    ProfileSerializer,
+    UserSerializer,
 )
 
 
@@ -106,3 +102,12 @@ class VitaminViewSet(ModelViewSet):
 class NutrimentViewSet(ModelViewSet):
     queryset = Nutriment.objects.all()
     serializer_class = NutrimentSerializer
+
+
+class UserViewSet(ModelViewSet):
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        username = self.request.query_params.get("username")
+        return User.objects.filter(username=username)
+
