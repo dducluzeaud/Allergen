@@ -50,14 +50,7 @@ class TraceSerializer(ModelSerializer):
 class NutrimentSerializer(ModelSerializer):
     class Meta:
         model = Nutriment
-        fields = (
-            "id",
-            "nutriment_name",
-            "description",
-            "image",
-            "daily_quantity_m",
-            "daily_quantity_f",
-        )
+        fields = ("id", "nutriment_name", "description", "daily_quantity_m", "daily_quantity_f")
 
 
 class NutrimentComposeProductSerializer(HyperlinkedModelSerializer):
