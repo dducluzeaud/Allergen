@@ -1,11 +1,10 @@
-import axios from 'axios'
-const API_URL = 'http://0.0.0.0:8000/api/v1'
+import API from './API'
 
 export class APIServiceProduct {
-  async getProducts(params) {
+  async getProducts(page) {
     try {
-      const url = `${API_URL}/product/?${params}`
-      return await axios.get(url).then(response => response.data)
+      const url = `/product/?offset=${page}`
+      return await API.get(url).then((response) => response.data)
     } catch (error) {
       return error
     }
@@ -13,8 +12,8 @@ export class APIServiceProduct {
 
   async getProductDetail(barcode) {
     try {
-      const url = `${API_URL}/product/?barcode=${barcode}`
-      return await axios.get(url).then(response => response.data)
+      const url = `/product/?barcode=${barcode}`
+      return await API.get(url).then((response) => response.data)
     } catch (error) {
       return error
     }
@@ -23,21 +22,21 @@ export class APIServiceProduct {
 
 export class APIServiceNutriment {
   async getNutriments() {
-    const url = `${API_URL}/nutriment/`
-    return axios.get(url).then(response => response.data)
+    const url = `/nutriment/`
+    return API.get(url).then((response) => response.data)
   }
 
   async getNutriment(pk) {
-    const url = `${API_URL}/nutriment/${pk}`
-    return axios.get(url).then(response => response.data)
+    const url = `/nutriment/${pk}`
+    return API.get(url).then((response) => response.data)
   }
 }
 
 export class APIServiceAdditives {
   async getAdditives(params) {
     try {
-      const url = `${API_URL}/additive/?${params}`
-      return await axios.get(url).then(response => response.data)
+      const url = `/additive/?${params}`
+      return await API.get(url).then((response) => response.data)
     } catch (error) {
       return error
     }
