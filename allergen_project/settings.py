@@ -100,16 +100,10 @@ DATABASES = {
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"
-    },
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 
@@ -143,28 +137,26 @@ REST_FRAMEWORK = {
         #   then open endpoints on a case-by-case basis
         "rest_framework.permissions.IsAuthenticatedOrReadOnly",
     ),
-    "TEST_REQUEST_RENDERER_CLASSES": (
-        "rest_framework.renderers.MultiPartRenderer",
-        "rest_framework.renderers.JSONRenderer",
-        "rest_framework.renderers.TemplateHTMLRenderer",
-    ),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ),
-    "DEFAULT_FILTER_BACKENDS": (
-        "django_filters.rest_framework.DjangoFilterBackend",
-    ),
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 20,
 }
 
+SITE_ID = 1
+CSRF_COOKIE_SECURE = True
 
 JWT_AUTH = {
     "JWT_ALLOW_REFRESH": True,
     "JWT_EXPIRATION_DELTA": timedelta(hours=1),
     "JWT_REFRESH_EXPIRATION_DELTA": timedelta(days=7),
+    # 'JWT_AUTH_COOKIE': 'jwt_auth_token',
+    # 'CSFR_COOKIE': True,
 }
+
 
 # cors
 CORS_ORIGIN_ALLOW_ALL = False
