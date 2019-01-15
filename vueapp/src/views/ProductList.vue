@@ -1,6 +1,11 @@
 <template>
-  <div class="hero-body">
-    <div class="container">
+  <div class="container">
+    <section class="section">
+      <b-field>
+        <b-input placeholder="No label" rounded></b-input>
+      </b-field>
+    </section>
+    <section class="section">
       <div v-for="n in 4" :key="n" v-if="products">
         <div class="tile is-ancestor">
           <div
@@ -9,16 +14,32 @@
             :key="product.id"
           >
             <article class="tile is-child box">
-              <div class="columns">
-                <div class="column is-4">
-                  <figure class="image is-64x64">
-                    <img class="image is-rounded is-64x64" :src="product.image_url">
-                  </figure>
+              <router-link :to="{name: 'ProductDetail', params: { barcode: product.barcode}}">
+                <div class="columns">
+                  <div class="column is-4">
+                    <figure class="image is-64x64">
+                      <img class="image is-rounded is-64x64" :src="product.image_url">
+                    </figure>
+                  </div>
+                  <div class="column is-8">
+                    <p class="title">{{ product.product_name | capitalize }}</p>
+                  </div>
                 </div>
-                <div class="column is-8">
-                  <p class="title">{{ product.product_name | capitalize }}</p>
-                </div>
-              </div>
+              </router-link>
+              <br>
+              <p
+                id="allergen"
+                v-if="product.allergens.length"
+                v-for="allergen in product.allergens"
+                :key="allergen.id"
+              >Allergène: {{allergen.allergen_name | capitalize}} ❗️</p>
+              <p
+                id="additives"
+                v-if="product.additives.length"
+                v-for="additive in product.additives"
+                :key="additive.id"
+              >{{ (additive.risk > 3) ? `Additif à risque: ${additive.additive_name} ⛔️` : ''}}</p>
+              <hr>
               <img v-if="product.nutrition_grade === 'a'" src="../assets/img/nutriscore/A.png">
               <img v-else-if="product.nutrition_grade === 'b'" src="../assets/img/nutriscore/B.png">
               <img v-else-if="product.nutrition_grade === 'c'" src="../assets/img/nutriscore/C.png">
@@ -35,7 +56,7 @@
         :per-page="perPage"
         @click="console.log(props.current)"
       ></b-pagination>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -68,14 +89,13 @@ export default {
 
   methods: {
     getProducts() {
-      const params = [`offset=${(this.page - 1) * 20}`]
+      const params = `${(this.page - 1) * 20}`
       APIProduct.getProducts(params)
         .then(data => {
           this.products = data.results
           this.numberOfProducts = data.count
           this.nextPage = data.next
           this.previousPage = data.previous
-          console.log(data.results)
         })
         .catch(error => {
           this.products = []
@@ -93,6 +113,13 @@ export default {
 }
 
 img {
-  height: 50px;
+  height: 40px;
+  width: 90px;
+}
+
+#allergen,
+#additives {
+  color: #d42608;
+  font-size: 12px;
 }
 </style>
