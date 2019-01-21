@@ -40,11 +40,7 @@
                 :key="additive.id"
               >{{ (additive.risk > 3) ? `Additif à risque: ${additive.additive_name} ⛔️` : ''}}</p>
               <hr>
-              <img v-if="product.nutrition_grade === 'a'" src="../assets/img/nutriscore/A.png">
-              <img v-else-if="product.nutrition_grade === 'b'" src="../assets/img/nutriscore/B.png">
-              <img v-else-if="product.nutrition_grade === 'c'" src="../assets/img/nutriscore/C.png">
-              <img v-else-if="product.nutrition_grade === 'd'" src="../assets/img/nutriscore/D.png">
-              <img v-else-if="product.nutrition_grade === 'e'" src="../assets/img/nutriscore/E.png">
+              <Nutriscore :nutriscore="product.nutrition_grade"/>
             </article>
           </div>
         </div>
@@ -62,10 +58,14 @@
 
 <script>
 import { APIServiceProduct } from '@/api/APIService'
+import Nutriscore from '@/components/Nutriscore'
 
 const APIProduct = new APIServiceProduct()
 
 export default {
+  components: {
+    Nutriscore
+  },
   data() {
     return {
       products: [],
