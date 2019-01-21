@@ -21,7 +21,7 @@
               label="Risque"
               centered
               sortable
-            >{{ emojize(props.row.risk) }}</b-table-column>
+            >{{ (props.row.risk) | emojizeRisk }}</b-table-column>
 
             <b-table-column
               class="has-text-centered"
@@ -69,7 +69,7 @@ export default {
     }
   },
   created() {
-    // Fethc the data the view is created
+    // Fetch  the data the view is created
     // and the data is already being observed
     this.getAdditives()
   },
@@ -113,19 +113,6 @@ export default {
       this.sortField = field
       this.sortOrder = order === 'desc' ? '-' : ' '
       this.getAdditives()
-    },
-    emojize(risk) {
-      if (risk === 0) {
-        return '✅'
-      } else if (risk === 1) {
-        return '⚠️'
-      } else if (risk === 2) {
-        return '❓'
-      } else if (risk === 3) {
-        return '⁉️'
-      } else if (risk === 4) {
-        return '⛔️'
-      }
     }
   }
 }
