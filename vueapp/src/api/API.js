@@ -12,6 +12,10 @@ const API = axios.create({
 
 API.defaults.baseURL = process.env.VUE_APP_ROOT_API
 
+// Make Axios play nice with Django CSRF
+API.defaults.xsrfCookieName = 'csrftoken'
+API.defaults.xsrfHeaderName = 'X-CSRFToken'
+
 const token = localStorage.getItem('token')
 
 if (token) {
