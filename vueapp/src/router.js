@@ -18,61 +18,61 @@ const router = new Router({
     {
       path: '/',
       name: 'Home',
-      component: Home
+      component: Home,
     },
     {
       path: '/about',
       name: 'About',
-      component: About
+      component: About,
     },
     {
       path: '/products',
       name: 'ProductList',
-      component: Products
+      component: Products,
     },
     {
       path: '/product/:barcode',
       name: 'ProductDetail',
-      component: ProductDetail
+      component: ProductDetail,
     },
     {
       path: '/nutriment/:pk/',
       name: 'Nutriment',
-      component: Nutriment
+      component: Nutriment,
     },
     {
       path: '/additives',
       name: 'Additives',
-      component: Additives
+      component: Additives,
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
     },
     {
       path: '/profile/:username',
       name: 'Profile',
       component: Profile,
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true },
     },
     {
       path: '*',
       name: 'NotFound',
-      redirect: { name: 'Home' }
-    }
+      redirect: { name: 'Home' },
+    },
   ],
-  mode: 'history'
+  mode: 'history',
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (!store.getters.isAuthenticated) {
       next({
         name: 'Login',
-        query: { redirect: to.fullPath }
+        query: { redirect: to.fullPath },
       })
     } else {
       next()
