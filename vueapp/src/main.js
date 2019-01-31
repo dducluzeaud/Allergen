@@ -3,7 +3,7 @@ import App from '@/App.vue'
 import router from '@/router'
 import store from '@/store'
 import axios from 'axios'
-
+import { truncate, upperFirst } from 'lodash'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import '@/assets/css/style.css'
@@ -14,13 +14,10 @@ Vue.config.productionTip = false
 Vue.filter('capitalize', (value) => {
   if (!value) return ''
   value = value.toString().toLowerCase()
-  if (value.length > 43) {
-    value.substring(39)
-    const space = value.lastIndexOf(' ')
-    value.substring(space)
-    value = `${value} ...`
+  if (value.length > 36) {
+    value = truncate(value, { length: 36, separator: ' ' })
   }
-  return value.charAt(0).toUpperCase() + value.slice(1)
+  return upperFirst(value)
 })
 
 Vue.filter('emojizeRisk', (risk) => {

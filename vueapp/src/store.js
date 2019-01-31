@@ -15,12 +15,10 @@ export default new Vuex.Store({
     jwt: localStorage.getItem('token'),
     endpoints: {
       // TODO: Remove hardcoding of dev endpoints
-      obtainJWT: 'http://0.0.0.0:8000/api/v1/auth/jwt/create/',
-      refreshJWT: 'http://0.0.0.0:8000/api/v1/auth/jwt/refresh/',
-      baseUrl: 'http://0.0.0.0:8000/api/v1/auth/'
-    }
+      obtainJWT: '/auth/jwt/create/',
+      refreshJWT: '/auth/jwt/refresh/',
+    },
   },
-
   mutations: {
     setAuthUser(state, { authUser, isAuthenticated }) {
       Vue.set(state, 'authUser', authUser)
@@ -33,15 +31,15 @@ export default new Vuex.Store({
     removeToken(state) {
       localStorage.removeItem('token')
       state.jwt = null
-    }
+    },
   },
   actions: {
     login({ commit }) {
       commit('setAuthUser')
-    }
+    },
   },
   getters: {
-    isAuthenticated: state => !!state.jwt,
-    authUser: state => state
-  }
+    isAuthenticated: (state) => !!state.jwt,
+    authUser: (state) => state,
+  },
 })

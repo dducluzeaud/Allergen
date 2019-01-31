@@ -6,6 +6,7 @@
           <img :src="product.image_url">
         </div>
         <div class="column">
+          <h2 class="subtitle">{{product.product_name}}</h2>
           <Nutriscore :nutriscore="product.nutrition_grade"/>
         </div>
       </div>
@@ -42,7 +43,10 @@
               :key="vitaminName.id"
             >{{vitaminName | capitalize}}</div>
           </div>
-          <div class="column is-one-third" v-if="nutriments.length">
+          <div
+            class="column is-one-third"
+            v-if="nutriments.filter(function (el) { return el.nutrimentQuantity > 0 }).length"
+          >
             <p class="menu-label">Nuriments:</p>
             <div v-for="{nutrimentName, nutrimentQuantity} in nutriments" :key="nutrimentName.id">
               <div v-if="nutrimentQuantity !== 0">
@@ -75,11 +79,11 @@ const APIProductDetail = new APIServiceProduct()
 
 export default {
   components: {
-    Nutriscore
+    Nutriscore,
   },
   data() {
     return {
-      product: {}
+      product: {},
     }
   },
   created() {
@@ -88,21 +92,21 @@ export default {
   methods: {
     getProductDetail() {
       APIProductDetail.getProductDetail(this.$route.params.barcode)
-        .then(data => {
+        .then((data) => {
           this.product = data.results[0]
         })
-        .catch(error => {
+        .catch((error) => {
           this.product = {}
           throw error
         })
-    }
+    },
   },
   computed: {
     ingredients() {
       return Object.values(this.product.ingredients).map(
         ({ ingredient_name }) => ({
-          ingredient_name
-        })
+          ingredient_name,
+        }),
       )
     },
     vitamins() {
@@ -111,21 +115,21 @@ export default {
           vitamin_name,
           description,
           daily_quantity_m,
-          daily_quantity_f
+          daily_quantity_f,
         }) => ({
           vitaminName: vitamin_name,
           vitaminDesc: description,
           vitaminDalyM: daily_quantity_m,
-          vitaminDailyF: daily_quantity_f
-        })
+          vitaminDailyF: daily_quantity_f,
+        }),
       )
     },
     nutriments() {
       return Object.values(this.product.nutriments).map(
         ({ nutriment_name, nutriment_quantity }) => ({
           nutrimentName: nutriment_name,
-          nutrimentQuantity: parseInt(nutriment_quantity / 1000, 10)
-        })
+          nutrimentQuantity: parseInt(nutriment_quantity / 1000, 10),
+        }),
       )
     },
     additives() {
@@ -133,21 +137,21 @@ export default {
         ({ additive_name, risk, description }) => ({
           additiveName: additive_name,
           risk,
-          description
-        })
+          description,
+        }),
       )
     },
     allergens() {
       return Object.values(this.product.allergens).map(({ allergen_name }) => ({
-        allergenName: allergen_name
+        allergenName: allergen_name,
       }))
     },
     traces() {
       return Object.values(this.product.traces).map(({ name }) => ({
-        trace: name
+        trace: name,
       }))
-    }
-  }
+    },
+  },
 }
 </script>
 
