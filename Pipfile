@@ -1,35 +1,25 @@
 [[source]]
+name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
-name = "pypi"
-
-[packages]
-django = "*"
-"psycopg2-binary" = "*"
-requests = "*"
-pandas = "*"
-django-rest-framework = "*"
-django-filter = "*"
-django-rest-swagger = "*"
-django-rest-auth = "*"
-django-allauth = "*"
-djangorestframework-jwt = "*"
-django-cors-headers = "*"
-ipdb = "*"
-py-translator = "*"
 
 [dev-packages]
-coverage = "*"
 django-debug-toolbar = "*"
-pylint = "*"
-"pep8" = "*"
-"autopep8" = "*"
-"flake8" = "*"
-python-language-server = "*"
-mypy = "*"
+coverage = "*"
 requests-mock = "*"
-codecov = "*"
-black = "*"
+
+[packages]
+psycopg2 = "*"
+django-cors-headers = "*"
+django = "*"
+django-rest-framework = "*"
+requests = "*"
+pandas = "*"
+django-filter = "*"
+django-rest-swagger = "*"
+py-translator = "*"
+djoser = "*"
+djangorestframework-jwt = "*"
 
 [requires]
 python_version = "3.7"
