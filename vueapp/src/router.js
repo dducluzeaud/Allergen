@@ -36,6 +36,11 @@ const router = new Router({
       component: ProductDetail,
     },
     {
+      path: '/product/:barcode',
+      name: 'ProductDetail',
+      component: ProductDetail
+    },
+    {
       path: '/nutriment/:pk/',
       name: 'Nutriment',
       component: Nutriment,
