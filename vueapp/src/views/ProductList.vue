@@ -64,7 +64,7 @@ const APIProduct = new APIServiceProduct()
 
 export default {
   components: {
-    Nutriscore
+    Nutriscore,
   },
   data() {
     return {
@@ -74,7 +74,7 @@ export default {
       previousPage: '',
       errors: [],
       page: 1,
-      perPage: 20
+      perPage: 20,
     }
   },
   created() {
@@ -84,26 +84,26 @@ export default {
     $route: 'getProducts',
     page() {
       this.getProducts()
-    }
+    },
   },
 
   methods: {
     getProducts() {
       const params = `${(this.page - 1) * 20}`
       APIProduct.getProducts(params)
-        .then(data => {
+        .then((data) => {
           this.products = data.results
           this.numberOfProducts = data.count
           this.nextPage = data.next
           this.previousPage = data.previous
         })
-        .catch(error => {
+        .catch((error) => {
           this.products = []
           this.numberOfProducts = 0
           throw error
         })
-    }
-  }
+    },
+  },
 }
 </script>
 

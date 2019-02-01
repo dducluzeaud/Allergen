@@ -65,7 +65,7 @@ export default {
       sortOrder: '-',
       defaultSortOrder: '',
       page: 1,
-      perPage: 20
+      perPage: 20,
     }
   },
   created() {
@@ -75,23 +75,23 @@ export default {
   },
   watch: {
     // call again the method if the route changes
-    $route: 'getAdditives'
+    $route: 'getAdditives',
   },
   methods: {
     getAdditives() {
       const params = [
         `ordering=${this.sortOrder}${this.sortField}`,
-        `offset=${(this.page - 1) * 20}`
+        `offset=${(this.page - 1) * 20}`,
       ].join('&')
       this.loading = true
       APIAdditives.getAdditives(params)
-        .then(data => {
+        .then((data) => {
           this.additives = data.results
           this.total = data.count
           this.nextPage = data.next
           this.previousPage = data.previous
         })
-        .catch(error => {
+        .catch((error) => {
           this.data = []
           this.total = 0
           this.loading = false
@@ -113,7 +113,7 @@ export default {
       this.sortField = field
       this.sortOrder = order === 'desc' ? '-' : ' '
       this.getAdditives()
-    }
-  }
+    },
+  },
 }
 </script>
