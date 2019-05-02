@@ -8,7 +8,7 @@ export default props => (
   <HashRouter>
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/additifs" component={AdditifTable} />
+      <Route path="/additifs" component={AdditifTable} />
     </Switch>
   </HashRouter>
 );

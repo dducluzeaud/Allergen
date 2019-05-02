@@ -192,7 +192,7 @@ const PaperRoot = styled(Paper)`
   margin: 20px;
 `;
 
-const AdditifTable = () => {
+function AdditifTable() {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
@@ -327,6 +327,6 @@ const AdditifTable = () => {
       />
     </PaperRoot>
   );
-};
+}
 
 export default AdditifTable;
