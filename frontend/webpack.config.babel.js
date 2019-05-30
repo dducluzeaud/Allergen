@@ -14,6 +14,7 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, 'src'),
+    historyApiFallback: { disableDotRule: true },
   },
   module: {
     rules: [
@@ -33,6 +34,10 @@ module.exports = {
             options: { minimize: true },
           },
         ],
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ['file-loader'],
       },
     ],
   },
