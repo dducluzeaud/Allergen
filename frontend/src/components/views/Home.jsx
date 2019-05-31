@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Grid } from '@material-ui/core';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
+import { Grid, OutlinedInput } from '@material-ui/core';
 
-const home = require('../../assets/home.png');
+
+const home = require('assets/home.png');
 
 const FlexGrid = styled(Grid)`
   background-position: center center;
@@ -33,7 +33,7 @@ const Title = styled.p`
 const Home = () => (
   <FlexGrid container direction="column" justify="center" align="center">
     <Title>
-      Débarrassez vous de vos allergies alimentaires !{' '}
+      Débarrassez vous de vos allergies alimentaires !
       <span role="img" aria-label="smile">
         😁
       </span>
