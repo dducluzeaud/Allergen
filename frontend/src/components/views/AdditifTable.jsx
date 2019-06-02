@@ -130,8 +130,6 @@ const AdditifTable = () => {
     setOrderBy(property);
   };
 
-  // const emptyRows = rowsPerPage - Math.min(rowsPerPage, additifs.length);
-
   return (
     <PaperRoot>
       <div>

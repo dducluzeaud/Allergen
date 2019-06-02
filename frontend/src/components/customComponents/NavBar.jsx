@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import IconButton from '@material-ui/core/IconButton';
@@ -37,6 +37,7 @@ const NavBar = () => (
             <StyledImage src={logo} alt="" />
           </NavLink>
           <NavLink to="/additifs">Additifs</NavLink>
+          <NavLink to="/products">Produits</NavLink>
           <IconButton onClick={() => {}} color="inherit" aria-label="Menu" />
         </Grid>
       </Toolbar>

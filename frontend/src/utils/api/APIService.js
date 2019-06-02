@@ -4,7 +4,11 @@ import API from './API';
 /**
  * Products endpoint
  */
-export const getProducts = page => API.get(`product/?offset=${page}`);
+export const getProducts = (page, perPage) => {
+  const offset = page * perPage;
+
+  return API.get(`product/?offset=${offset}&limit=${perPage}`);
+};
 export const getProductDetail = barcode => API.get(`product/?barcode=${barcode}`);
 
 /**
@@ -27,8 +31,12 @@ export const getAdditives = (page, perPage, ordering, order) => {
   };
 
   let url = `/additive/?offset=${page * perPage}`;
-  if (perPage !== 20) { url += buildUrl.perPage(); }
-  if (!isNil(order)) { url += buildUrl.ordering(); }
+  if (perPage !== 20) {
+    url += buildUrl.perPage();
+  }
+  if (!isNil(order)) {
+    url += buildUrl.ordering();
+  }
 
   return API.get(url);
 };
