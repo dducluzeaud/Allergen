@@ -5,8 +5,8 @@ import styled from 'styled-components';
 const NavLink = styled(Link)`
   text-decoration: none;
   color: #255219;
-  align-self: center;
   font-size: 25px;
+  align-self: center
 
   &:hover {
     text-decoration: none;

@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Grid, Container } from '@material-ui/core';
-import NavBar from '../customComponents/NavBar';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
+import { Grid, OutlinedInput } from '@material-ui/core';
 
-const home = require('../../assets/home.png');
+
+const home = require('assets/home.png');
 
 const FlexGrid = styled(Grid)`
   background-position: center center;
@@ -31,13 +30,14 @@ const Title = styled.p`
   align-self: center;
 `;
 
-const Subtitle = styled(Text)`
-  color: #255219;
-`;
-
 const Home = () => (
   <FlexGrid container direction="column" justify="center" align="center">
-    <Title>Débarrassez vous de vos allergies alimentaires ! 😁</Title>
+    <Title>
+      Débarrassez vous de vos allergies alimentaires !
+      <span role="img" aria-label="smile">
+        😁
+      </span>
+    </Title>
     <Input placeholder="Un aliment? " />
   </FlexGrid>
 );
