@@ -13,7 +13,6 @@ const API = axios.create({
 // TODO: use webpack dot env
 API.defaults.baseURL = 'http://0.0.0.0:8000/';
 
-console.log(process.env.BASE_URL, 'YOLO');
 // Make Axios play nice with Django CSRF
 API.defaults.xsrfCookieName = 'csrftoken';
 API.defaults.xsrfHeaderName = 'X-CSRFToken';

@@ -7,7 +7,6 @@ const NavLink = styled(Link)`
   color: #255219;
   font-size: 25px;
   align-self: center
-  margin-left: 10px;
 
   &:hover {
     text-decoration: none;
