@@ -9,7 +9,6 @@ coverage = "*"
 requests-mock = "*"
 
 [packages]
-psycopg2 = "*"
 django-cors-headers = "*"
 django = "*"
 django-rest-framework = "*"
@@ -17,9 +16,11 @@ requests = "*"
 pandas = "*"
 django-filter = "*"
 django-rest-swagger = "*"
-py-translator = "*"
 djoser = "*"
 djangorestframework-jwt = "*"
+djangorestframework-simplejwt = "*"
+psycopg2 = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.7"

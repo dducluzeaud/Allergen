@@ -21,7 +21,7 @@
     "yup": "^0.27.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode development --hot",
+    "start": "webpack-dev-server --mode development --hot --host 0.0.0.0",
     "build": "webpack --mode production"
   },
   "eslintConfig": {

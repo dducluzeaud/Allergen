@@ -10,7 +10,7 @@ const ApiClient = axios.create({
   },
 });
 
-ApiClient.defaults.baseURL = process.env.VUE_APP_ROOT_API;
+ApiClient.defaults.baseURL = process.env.API_URL;
 
 // Make Axios play nice with Django CSRF
 ApiClient.defaults.xsrfCookieName = 'csrftoken';
