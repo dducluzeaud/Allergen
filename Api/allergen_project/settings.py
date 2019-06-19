@@ -149,14 +149,10 @@ REST_FRAMEWORK = {
 SITE_ID = 1
 CSRF_COOKIE_SECURE = True
 
-JWT_AUTH = {
-    "JWT_ALLOW_REFRESH": True,
-    "JWT_EXPIRATION_DELTA": timedelta(hours=1),
-    "JWT_REFRESH_EXPIRATION_DELTA": timedelta(days=7),
-    # 'JWT_AUTH_COOKIE': 'jwt_auth_token',
-    # 'CSFR_COOKIE': True,
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
-
 
 # cors
 CORS_ORIGIN_ALLOW_ALL = False

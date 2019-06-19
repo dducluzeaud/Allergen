@@ -34,14 +34,14 @@ const LoginModal = (props) => {
 
   const handleLogin = async (data, { setSubmitting }) => {
     try {
-      const {
-        data: { token },
-      } = await login(data);
-      localStorage.setItem('token', token);
-      props.onClose();
+      const { onClose } = props;
+      await login(data);
+      onClose();
     } catch (e) {
+      console.log(e, 'YOLO');
       const { response } = e;
       if (response.status === 400) setError(response.data.non_field_errors[0]);
+      if (response.status === 401) setError('Aucun compte trouvé avec ces informations');
     } finally {
       setSubmitting(false);
     }
@@ -87,7 +87,7 @@ const LoginModal = (props) => {
                 Me connecter
               </Button>
               {error !== '' && (
-                <Typography align="center" variant="span" color="error">
+                <Typography align="center" variant="body1" color="error">
                   {error}
                 </Typography>
               )}

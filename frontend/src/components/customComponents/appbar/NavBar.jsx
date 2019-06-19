@@ -60,8 +60,8 @@ const NavBar = () => {
           </Grid>
         </Toolbar>
       </TopBar>
-      <SignUpModal visible={visible} onClose={() => setVisible(false)} />
-      {/* <LoginModal visible={visible} onClose={() => setVisible(false)} /> */}
+      {/* <SignUpModal visible={visible} onClose={() => setVisible(false)} /> */}
+      <LoginModal visible={visible} onClose={() => setVisible(false)} />
     </Root>
   );
 };

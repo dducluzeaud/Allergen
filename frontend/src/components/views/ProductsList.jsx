@@ -68,9 +68,10 @@ const ProductsList = () => {
 
   return (
     <Grid container direction="row" justify="center" spacing={1}>
-      {products.map(product => (
+      {products.map((product) => (
         <Card key={product.id} className={classes.card}>
           <CardActionArea>
+            <p>{product.id}</p>
             <CardMedia
               className={classes.media}
               image={product.image_url || 'assets/image-not-found.png'}

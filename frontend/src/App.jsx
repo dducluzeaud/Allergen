@@ -3,28 +3,30 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { isNil } from 'ramda';
 
-
 import theme from 'utils/theme';
 import Routes from './routes';
 
 import NavBar from './components/customComponents/appbar/NavBar';
+import { getUser } from 'utils/api/User';
 
-const LoggedContext = React.createContext();
+const UserContext = React.createContext();
 
 const App = () => {
-  const [logged, setLogged] = useState(false);
+  const [logged, setLogged] = useState();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    !isNil(token) ? setLogged(true) : setLogged(false);
-  }, [logged]);
+    const user = getUser();
+    setLogged(user);
+  }, []);
 
   return (
     <>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <NavBar />
-        <Routes />
+        <UserContext.Provider>
+          <NavBar />
+          <Routes />
+        </UserContext.Provider>
       </MuiThemeProvider>
     </>
   );
