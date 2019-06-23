@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Grid, OutlinedInput } from '@material-ui/core';
 
-
 const home = require('assets/home.png');
 
 const FlexGrid = styled(Grid)`

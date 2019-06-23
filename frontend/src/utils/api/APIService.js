@@ -9,13 +9,13 @@ export const getProducts = (page, perPage) => {
 
   return API.get(`product/?offset=${offset}&limit=${perPage}`);
 };
-export const getProductDetail = barcode => API.get(`product/?barcode=${barcode}`);
+export const getProductDetail = (barcode) => API.get(`product/?barcode=${barcode}`);
 
 /**
  * Nutriments endpoint
  */
 export const getNutriments = () => API.get('nutriment/');
-export const getNutriment = pk => API.get(`nutriment/${pk}`);
+export const getNutriment = (pk) => API.get(`nutriment/${pk}`);
 
 /**
  * Additives endpoint

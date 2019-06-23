@@ -128,7 +128,6 @@ STATIC_URL = "/static/"
 
 INTERNAL_IPS = ["127.0.0.1"]
 
-
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
@@ -147,16 +146,14 @@ REST_FRAMEWORK = {
 }
 
 SITE_ID = 1
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
 
-JWT_AUTH = {
-    "JWT_ALLOW_REFRESH": True,
-    "JWT_EXPIRATION_DELTA": timedelta(hours=1),
-    "JWT_REFRESH_EXPIRATION_DELTA": timedelta(days=7),
-    # 'JWT_AUTH_COOKIE': 'jwt_auth_token',
-    # 'CSFR_COOKIE': True,
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
-
 
 # cors
 CORS_ORIGIN_ALLOW_ALL = False
@@ -168,4 +165,3 @@ CORS_ORIGIN_WHITELIST = (
     "http://127.0.0.1:8000",
 )
 
-CSRF_COOKIE_SECURE = True

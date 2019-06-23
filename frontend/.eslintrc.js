@@ -16,7 +16,9 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react', 'react-hooks'],
-  rules: {},
+  rules: {
+    'arrow-parens': 'always',
+  },
   settings: {
     'import/resolver': {
       node: {

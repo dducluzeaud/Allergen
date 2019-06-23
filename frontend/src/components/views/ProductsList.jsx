@@ -68,7 +68,7 @@ const ProductsList = () => {
 
   return (
     <Grid container direction="row" justify="center" spacing={1}>
-      {products.map(product => (
+      {products.map((product) => (
         <Card key={product.id} className={classes.card}>
           <CardActionArea>
             <CardMedia

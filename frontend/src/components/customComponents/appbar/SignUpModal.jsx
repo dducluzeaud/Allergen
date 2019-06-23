@@ -1,7 +1,5 @@
-import React from 'react';
-import {
-  Formik, Form, Field, ErrorMessage,
-} from 'formik';
+import React, { useContext } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import Typography from '@material-ui/core/Typography';
@@ -13,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { signUp, login } from 'utils/api/User';
 import CustomInput from 'components/customComponents/form/CustomInput';
 import CenteredModal from '../CenteredModal';
+import { UserContext } from '../../../context/userContext';
 
 const useStyles = makeStyles({
   field: {
@@ -41,19 +40,20 @@ const SignupSchema = Yup.object().shape({
 
 const SignUpModal = (props) => {
   const classes = useStyles();
+  const user = useContext(UserContext);
 
   const handleSignUp = async (data, { setSubmitting, setFieldError }) => {
     try {
       const { onClose } = props;
       await signUp(data);
-      const { data: { token } } = await login(data);
-      localStorage.setItem('token', token);
+      await login(data);
+      user.loggedIn();
       onClose();
     } catch (error) {
       const { response } = error;
       if (response.status === 400) {
         Object.entries(response.data).map(([field, errors]) => {
-          errors.map(e => setFieldError(field, e));
+          errors.map((e) => setFieldError(field, e));
         });
       }
     } finally {
@@ -87,6 +87,7 @@ const SignUpModal = (props) => {
               />
               <Field
                 name="email"
+                type="email"
                 component={CustomInput}
                 className={classes.field}
                 placeholder="Email"
