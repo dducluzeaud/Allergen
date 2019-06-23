@@ -71,7 +71,6 @@ const ProductsList = () => {
       {products.map((product) => (
         <Card key={product.id} className={classes.card}>
           <CardActionArea>
-            <p>{product.id}</p>
             <CardMedia
               className={classes.media}
               image={product.image_url || 'assets/image-not-found.png'}

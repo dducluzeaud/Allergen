@@ -32,14 +32,14 @@ const EnhancedTableHead = ({ order, orderBy, onRequestSort }) => {
     },
   ];
 
-  const createSortHandler = property => (event) => {
+  const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
 
   return (
     <TableHead>
       <TableRow>
-        {rows.map(row => (
+        {rows.map((row) => (
           <TableCell
             key={row.id}
             numeric={row.numeric}
@@ -132,25 +132,23 @@ const AdditifTable = () => {
 
   return (
     <PaperRoot>
-      <div>
-        <Table aria-labelledby="tableTitle">
-          <EnhancedTableHead
-            order={order}
-            orderBy={orderBy}
-            onRequestSort={handleRequestSort}
-            rowCount={additifs.length}
-          />
-          <TableBody>
-            {additifs.map(additif => (
-              <TableRow hover onClick={() => {}} role="checkbox" tabIndex={-1} key={additif.id}>
-                <TableCell>{emojizeRisk(additif.risk)}</TableCell>
-                <TableCell>{additif.additive_name}</TableCell>
-                <TableCell>{additif.description}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+      <Table aria-labelledby="tableTitle">
+        <EnhancedTableHead
+          order={order}
+          orderBy={orderBy}
+          onRequestSort={handleRequestSort}
+          rowCount={additifs.length}
+        />
+        <TableBody>
+          {additifs.map((additif) => (
+            <TableRow hover onClick={() => {}} role="checkbox" tabIndex={-1} key={additif.id}>
+              <TableCell>{emojizeRisk(additif.risk)}</TableCell>
+              <TableCell>{additif.additive_name}</TableCell>
+              <TableCell>{additif.description}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
       <TablePagination
         rowsPerPageOptions={[20, 50, 100]}
         component="div"

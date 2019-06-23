@@ -13,7 +13,7 @@ export const login = async ({ username, password }) => {
 };
 
 export const signUp = ({ username, email, password }) =>
-  API.post('/api/v1/auth/users/', { username, email, password });
+  API.post('/auth/users/', { username, email, password });
 
 export const logout = () => {
   localStorage.removeItem('accessToken');
@@ -32,11 +32,8 @@ export const refreshToken = () => {
 export const getUser = () => {
   try {
     const token = localStorage.getItem('accessToken');
-    console.log(token);
-    const jwt = jwtDecode(token);
-    console.log(jwt, 'JWT');
-    return jwt;
-  } catch (error) {
+    return jwtDecode(token);
+  } catch {
     return null;
   }
 };

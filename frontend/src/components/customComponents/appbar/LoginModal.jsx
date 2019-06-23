@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Formik, Form, Field } from 'formik';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { login } from 'utils/api/User';
+import { UserContext } from 'context/userContext';
 
 import CustomInput from 'components/customComponents/form/CustomInput';
 import CenteredModal from '../CenteredModal';
@@ -31,17 +32,21 @@ const LoginSchema = Yup.object().shape({
 const LoginModal = (props) => {
   const classes = useStyles();
   const [error, setError] = useState();
+  const user = useContext(UserContext);
 
   const handleLogin = async (data, { setSubmitting }) => {
     try {
       const { onClose } = props;
       await login(data);
+      user.loggedIn();
       onClose();
     } catch (e) {
-      console.log(e, 'YOLO');
       const { response } = e;
-      if (response.status === 400) setError(response.data.non_field_errors[0]);
-      if (response.status === 401) setError('Aucun compte trouvé avec ces informations');
+      if (response.status === 400) {
+        setError(response.data.non_field_errors[0]);
+      } else if (response.status === 401) {
+        setError('Aucun compte trouvé avec ces informations');
+      }
     } finally {
       setSubmitting(false);
     }

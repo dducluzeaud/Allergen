@@ -6,29 +6,34 @@ import { isNil } from 'ramda';
 import theme from 'utils/theme';
 import Routes from './routes';
 
+import { UserContext } from 'context/userContext';
+
 import NavBar from './components/customComponents/appbar/NavBar';
 import { getUser } from 'utils/api/User';
-
-const UserContext = React.createContext();
 
 const App = () => {
   const [logged, setLogged] = useState();
 
   useEffect(() => {
     const user = getUser();
+    console.log(user, 'APP: user');
     setLogged(user);
   }, []);
 
   return (
-    <>
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <UserContext.Provider>
-          <NavBar />
-          <Routes />
-        </UserContext.Provider>
-      </MuiThemeProvider>
-    </>
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+      <UserContext.Provider
+        value={{
+          user: logged,
+          logOut: () => setLogged(false),
+          loggedIn: () => setLogged(getUser()),
+        }}
+      >
+        <NavBar />
+        <Routes />
+      </UserContext.Provider>
+    </MuiThemeProvider>
   );
 };
 
