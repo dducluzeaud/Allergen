@@ -5,6 +5,7 @@ import Dotenv from 'dotenv-webpack';
 module.exports = {
   entry: path.join(__dirname, 'src', 'index.js'),
   output: {
+    publicPath: '/',
     path: path.join(__dirname, 'build', 'js'),
     filename: 'bundle.js',
   },
@@ -15,6 +16,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'src'),
     historyApiFallback: { disableDotRule: true },
+    liveReload: false,
   },
   module: {
     rules: [
