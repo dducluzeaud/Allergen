@@ -16,7 +16,6 @@ const App = () => {
 
   useEffect(() => {
     const user = getUser();
-    console.log(user, 'APP: user');
     setLogged(user);
   }, []);
 

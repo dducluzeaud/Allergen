@@ -6,7 +6,7 @@ import Home from 'components/views/Home';
 import AdditifTable from 'components/views/AdditifTable';
 import ProductsList from 'components/views/ProductsList';
 
-export default props => (
+export default (props) => (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route path="/additifs" component={AdditifTable} />

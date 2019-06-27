@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Grid, OutlinedInput } from '@material-ui/core';
+import { Formik, Form, Field } from 'formik';
+
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
+import { Grid, OutlinedInput, Button } from '@material-ui/core';
+
+import SearchInput from '../customComponents/form/SearchInput';
 
 const home = require('assets/home.png');
 
@@ -29,16 +37,82 @@ const Title = styled.p`
   align-self: center;
 `;
 
-const Home = () => (
-  <FlexGrid container direction="column" justify="center" align="center">
-    <Title>
-      Débarrassez vous de vos allergies alimentaires !
-      <span role="img" aria-label="smile">
-        😁
-      </span>
-    </Title>
-    <Input placeholder="Un aliment? " />
-  </FlexGrid>
-);
+const Home = ({ history }) => {
+  const [menuEl, setMenuEl] = useState(null);
+  const [searchField, setSearchField] = useState('produit');
+  const searchFields = {Produit: 'product_name', 'Code barre': 'barcode', Nutriscore: 'nutriscore'};
+
+  const handleSearch = (val, act) => {
+    const { search } = val;
+    history.push({
+      pathname: '/products/',
+      search: `${searchFields[searchField].toLowerCase()}=${search.toLowerCase()}`,
+    });
+  };
+
+  const handleSearchList = (event) => {
+    setMenuEl(event.currentTarget);
+  };
+
+  const handleMenuItem = (event) => {
+    setSearchField(event.currentTarget.innerText);
+    setMenuEl(null);
+  };
+
+  const closeMenuList = () => {
+    setMenuEl(null);
+  };
+
+  return (
+    <FlexGrid container direction="column" justify="center" align="center">
+      <Title>
+        Débarrassez vous de vos allergies alimentaires !
+        <span role="img" aria-label="smile">
+          😁
+        </span>
+      </Title>
+      <Formik
+        initialValues={{
+          search: '',
+          searchField: searchField,
+        }}
+        onSubmit={(values, actions) => handleSearch(values, actions)}
+      >
+        {({ isSubmitting }) => (
+          <Form>
+            <Field
+              name="search"
+              component={SearchInput}
+              onMenuClick={handleSearchList}
+              placeholder={`Rechercher par ${searchField.toLowerCase()}`}
+            >
+              <Menu
+                anchorEl={menuEl}
+                getContentAnchorEl={null}
+                open={Boolean(menuEl)}
+                onClose={closeMenuList}
+                elevation={0}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+              >
+                {Object.keys(searchFields).map((field) => (
+                  <MenuItem onClick={handleMenuItem}>
+                    <ListItemText primary={field} />
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Field>
+          </Form>
+        )}
+      </Formik>
+    </FlexGrid>
+  );
+};
 
 export default Home;

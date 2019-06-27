@@ -1,13 +1,23 @@
-import { isNil } from 'ramda';
+import { isNil, has } from 'ramda';
+import queryString from 'query-string';
 import API from './API';
 
 /**
  * Products endpoint
  */
-export const getProducts = (page, perPage) => {
+export const getProducts = (page, perPage, params) => {
   const offset = page * perPage;
 
-  return API.get(`product/?offset=${offset}&limit=${perPage}`);
+  let url = 'product/';
+  const hasProduct = has('produit');
+  if (hasProduct(params))
+    return API.get(url + `?${queryString.stringify({ product_name: params.produit })}`);
+
+  const hasNutriscore = has('nutriscore');
+  if (hasNutriscore(params)) {
+    return API.get(url + `&nutriscore=${params.nutriscore}`);
+  }
+  return API.get(url + `?offset=${offset}&limit=${perPage}`);
 };
 export const getProductDetail = (barcode) => API.get(`product/?barcode=${barcode}`);
 
