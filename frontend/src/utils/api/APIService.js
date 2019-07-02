@@ -1,21 +1,26 @@
 import { isNil } from 'ramda';
+import queryString from 'query-string';
 import API from './API';
 
 /**
  * Products endpoint
  */
-export const getProducts = (page, perPage) => {
+export const getProducts = (page, perPage, params) => {
   const offset = page * perPage;
+  const url = 'product/';
 
-  return API.get(`product/?offset=${offset}&limit=${perPage}`);
+  if (params) return API.get(`${url}?${queryString.stringify(params)}`);
+
+  return API.get(`${url}?offset=${offset}&limit=${perPage}`);
 };
-export const getProductDetail = (barcode) => API.get(`product/?barcode=${barcode}`);
+
+export const getProductDetail = barcode => API.get(`product/?barcode=${barcode}`);
 
 /**
  * Nutriments endpoint
  */
 export const getNutriments = () => API.get('nutriment/');
-export const getNutriment = (pk) => API.get(`nutriment/${pk}`);
+export const getNutriment = pk => API.get(`nutriment/${pk}`);
 
 /**
  * Additives endpoint

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -9,7 +11,6 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
-import styled from 'styled-components';
 import { getAdditives } from 'utils/api/APIService';
 
 const PaperRoot = styled(Paper)`
@@ -32,14 +33,14 @@ const EnhancedTableHead = ({ order, orderBy, onRequestSort }) => {
     },
   ];
 
-  const createSortHandler = (property) => (event) => {
+  const createSortHandler = property => (event) => {
     onRequestSort(event, property);
   };
 
   return (
     <TableHead>
       <TableRow>
-        {rows.map((row) => (
+        {rows.map(row => (
           <TableCell
             key={row.id}
             numeric={row.numeric}
@@ -64,6 +65,7 @@ const EnhancedTableHead = ({ order, orderBy, onRequestSort }) => {
 EnhancedTableHead.propTypes = {
   order: PropTypes.string.isRequired,
   orderBy: PropTypes.string.isRequired,
+  onRequestSort: PropTypes.func.isRequired,
 };
 
 const AdditifTable = () => {
@@ -140,7 +142,7 @@ const AdditifTable = () => {
           rowCount={additifs.length}
         />
         <TableBody>
-          {additifs.map((additif) => (
+          {additifs.map(additif => (
             <TableRow hover onClick={() => {}} role="checkbox" tabIndex={-1} key={additif.id}>
               <TableCell>{emojizeRisk(additif.risk)}</TableCell>
               <TableCell>{additif.additive_name}</TableCell>
@@ -167,4 +169,5 @@ const AdditifTable = () => {
     </PaperRoot>
   );
 };
+
 export default AdditifTable;

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import { Formik, Form, Field } from 'formik';
@@ -8,7 +10,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import { Grid, OutlinedInput, Button } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 
 import SearchInput from '../customComponents/form/SearchInput';
 
@@ -45,8 +47,8 @@ const SearchSchema = Yup.object().shape({
     then: Yup.number()
       .typeError('Un code barre est uniquement composé de chiffres!')
       .min(8, 'Un code barre a au moins 8 chiffres')
-      .required(),
-    otherwise: Yup.string().required(),
+      .required('Le champ ne peut pas être vide 😔'),
+    otherwise: Yup.string().required('Le champ ne peut pas être vide 😔'),
   }),
 });
 
@@ -61,9 +63,15 @@ const Home = ({ history }) => {
 
   const handleSearch = (val) => {
     const { search, searchField } = val;
-    history.push({
+    const query = searchFields[searchField];
+
+    if (query === 'barcode ') {
+      return () => {};
+    }
+
+    return history.push({
       pathname: '/products/',
-      search: `${searchFields[searchField]}=${search}`,
+      search: `?${query}=${search}`,
     });
   };
 
@@ -119,8 +127,8 @@ const Home = ({ history }) => {
                   horizontal: 'left',
                 }}
               >
-                {Object.keys(searchFields).map((field) => (
-                  <MenuItem onClick={(event) => handleMenuItem(event, setFieldValue)}>
+                {Object.keys(searchFields).map(field => (
+                  <MenuItem onClick={event => handleMenuItem(event, setFieldValue)}>
                     <ListItemText primary={field} className={classes.capitalize} />
                   </MenuItem>
                 ))}
@@ -131,6 +139,10 @@ const Home = ({ history }) => {
       </Formik>
     </FlexGrid>
   );
+};
+
+Home.propTypes = {
+  history: PropTypes.shape({}).isRequired,
 };
 
 export default Home;

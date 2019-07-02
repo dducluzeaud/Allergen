@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { ErrorMessage } from 'formik';
@@ -27,7 +28,9 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SearchInput({ onMenuClick, children, field, ...props }) {
+export default function SearchInput({
+  onMenuClick, children, field, ...props
+}) {
   const classes = useStyles();
 
   return (
@@ -59,3 +62,13 @@ export default function SearchInput({ onMenuClick, children, field, ...props }) 
     </>
   );
 }
+
+SearchInput.propTypes = {
+  onMenuClick: PropTypes.func.isRequired,
+  children: PropTypes.node,
+  field: PropTypes.shape({}).isRequired,
+};
+
+SearchInput.defaultProps = {
+  children: null,
+};

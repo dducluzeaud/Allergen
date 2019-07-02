@@ -18,10 +18,10 @@ import Description from '@material-ui/icons/Description';
 import { UserContext } from 'context/userContext';
 import { logout } from 'utils/api/User';
 
+import { makeStyles } from '@material-ui/styles';
 import SignUpModal from './SignUpModal';
 import LoginModal from './LoginModal';
 import NavLink from '../../StyledComponents/NavLink';
-import { makeStyles } from '@material-ui/styles';
 
 const Root = styled.div`
   flex-grow: 1;
@@ -82,10 +82,10 @@ const NavBar = () => {
         <Toolbar>
           <Grid container direction="row" alignItems="center">
             <NavLink to="/">
-              <StyledImage src="assets/logo.png" alt="" />
+              <StyledImage src="assets/logo.png" alt="allergen-logo" />
             </NavLink>
             <NavLink to="/additifs">Additifs</NavLink>
-            <NavLink to="/products" className={style.link}>
+            <NavLink strict to="/products" className={style.link}>
               Produits
             </NavLink>
           </Grid>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -11,7 +12,6 @@ import {
   TablePagination,
   Typography,
   Grid,
-  Modal,
 } from '@material-ui/core';
 
 import { getProducts } from 'utils/api/APIService';
@@ -37,24 +37,26 @@ const useStyles = makeStyles({
 });
 
 const ProductsList = ({ location }) => {
+  const queryParams = location.search;
   const classes = useStyles();
-  const [count, setCount] = useState(20);
+  const [numberOfProducts, setNumberOfProducts] = useState(20);
   const [page, setPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(20);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const queryParams = location.search;
     const params = queryString.parse(queryParams);
+
     const fetchProducts = async () => {
       const {
         data: { count, results },
       } = await getProducts(page, productsPerPage, params);
-      setCount(count);
+
+      setNumberOfProducts(count);
       setProducts(results);
     };
     fetchProducts();
-  }, [count, page, productsPerPage]);
+  }, [numberOfProducts, page, productsPerPage, queryParams]);
 
   const displayNutriscore = (score) => {
     const nutriscore = {
@@ -79,7 +81,7 @@ const ProductsList = ({ location }) => {
   return (
     <>
       <Grid container direction="row" justify="center" spacing={1}>
-        {products.map((product) => (
+        {products.map(product => (
           <Card className={classes.card}>
             <CardActionArea key={product.id}>
               <CardMedia
@@ -104,10 +106,10 @@ const ProductsList = ({ location }) => {
           </Card>
         ))}
       </Grid>
-      {!count > 20 && (
+      {numberOfProducts > 20 && (
         <TablePagination
           className={classes.pagination}
-          count={count}
+          count={numberOfProducts}
           rowsPerPageOptions={[20, 50, 100]}
           component="div"
           rowsPerPage={productsPerPage}
@@ -126,4 +128,7 @@ const ProductsList = ({ location }) => {
   );
 };
 
+ProductsList.propTypes = {
+  location: PropTypes.shape({}).isRequired,
+};
 export default ProductsList;
