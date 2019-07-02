@@ -85,7 +85,7 @@ const NavBar = () => {
               <StyledImage src="assets/logo.png" alt="allergen-logo" />
             </NavLink>
             <NavLink to="/additifs">Additifs</NavLink>
-            <NavLink strict to="/products" className={style.link}>
+            <NavLink to="/products" className={style.link}>
               Produits
             </NavLink>
           </Grid>
