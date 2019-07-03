@@ -22,9 +22,9 @@ before_script:
     - docker-compose up --build -d
 
 script:
-    - docker-compose run web coverage run ./manage.py test
-    - docker-compose run web coverage report
-    - docker-compose run web coverage xml
+    - docker-compose run django coverage run ./manage.py test
+    - docker-compose run django coverage report
+    - docker-compose run django coverage xml
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)

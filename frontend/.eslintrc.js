@@ -17,7 +17,7 @@ module.exports = {
   },
   plugins: ['react', 'react-hooks'],
   rules: {
-    'arrow-parens': 'always',
+    'arrow-parens': 'warn',
   },
   settings: {
     'import/resolver': {

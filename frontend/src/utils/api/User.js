@@ -12,28 +12,25 @@ export const login = async ({ username, password }) => {
   localStorage.setItem('refreshToken', refresh);
 };
 
-export const signUp = ({ username, email, password }) =>
-  API.post('/auth/users/', { username, email, password });
+export const signUp = ({ username, email, password }) => API.post('/auth/users/', { username, email, password });
 
 export const logout = () => {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
 };
 
-export const getAccessToken = () => {
-  return localStorage.getItem('refreshToken');
-};
+export const getAccessToken = () => localStorage.getItem('refreshToken');
 
 export const refreshToken = () => {
-  const refreshToken = localStorage.getItem('refreshToken');
-  return API.post('/aut/jwt/refresh/', { refreshToken });
+  const token = localStorage.getItem('refreshToken');
+  return API.post('/aut/jwt/refresh/', { token });
 };
 
 export const getUser = () => {
   try {
     const token = localStorage.getItem('accessToken');
     return jwtDecode(token);
-  } catch {
+  } catch (error) {
     return null;
   }
 };

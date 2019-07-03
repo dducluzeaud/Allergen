@@ -33,6 +33,21 @@ class ProductViewSet(ModelViewSet):
     ordering_fields = ("product_name", "barcode", "nutrition_grade")
     http_method_names = ["get"]
 
+    def list(self, request):
+        product_name = request.query_params.get("product_name", False)
+        if product_name:
+            queryset = Product.objects.filter(product_name__icontains=product_name)
+        else:
+            queryset = self.filter_queryset(self.get_queryset())
+
+        print(request.query_params)
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
 class CategoryViewSet(ModelViewSet):
     """

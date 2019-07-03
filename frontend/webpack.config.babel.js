@@ -1,10 +1,12 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import Dotenv from 'dotenv-webpack';
+import webpack from 'webpack';
 
 module.exports = {
   entry: path.join(__dirname, 'src', 'index.js'),
   output: {
+    publicPath: '/',
     path: path.join(__dirname, 'build', 'js'),
     filename: 'bundle.js',
   },
@@ -15,13 +17,14 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'src'),
     historyApiFallback: { disableDotRule: true },
+    liveReload: false,
   },
   module: {
     rules: [
       {
         // we do not want anything from node_modules to be compiled
         exclude: /node_modules/,
-        use: 'babel-loader',
+        use: ['babel-loader'],
         resolve: {
           extensions: ['.jsx', '.js', '.json'],
         },
@@ -47,9 +50,9 @@ module.exports = {
       filename: './index.html',
     }),
     new Dotenv(),
+    new webpack.HotModuleReplacementPlugin(),
   ],
   watchOptions: {
-    aggregateTimeout: 300,
-    poll: 1000,
+    poll: true,
   },
 };
