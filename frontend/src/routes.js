@@ -5,11 +5,13 @@ import { Route, Switch } from 'react-router-dom';
 import Home from 'components/views/Home';
 import AdditifTable from 'components/views/AdditifTable';
 import ProductsList from 'components/views/ProductsList';
+import ProductDetail from 'components/views/ProductDetail';
 
 export default props => (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route path="/additifs" component={AdditifTable} />
     <Route path="/products" component={ProductsList} />
+    <Route path="/product/:barcode" component={ProductDetail} />
   </Switch>
 );

@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: 'airbnb',
+  extends: ['airbnb'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -15,9 +15,10 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['react', 'react-hooks'],
+  plugins: ['react', 'react-hooks', 'import'],
   rules: {
     'arrow-parens': 'warn',
+    'import/no-unresolved': 0,
   },
   settings: {
     'import/resolver': {

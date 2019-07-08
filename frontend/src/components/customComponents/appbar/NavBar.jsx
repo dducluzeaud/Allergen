@@ -19,6 +19,8 @@ import { UserContext } from 'context/userContext';
 import { logout } from 'utils/api/User';
 
 import { makeStyles } from '@material-ui/styles';
+import logo from 'assets/logo.png';
+
 import SignUpModal from './SignUpModal';
 import LoginModal from './LoginModal';
 import NavLink from '../../StyledComponents/NavLink';
@@ -82,7 +84,7 @@ const NavBar = () => {
         <Toolbar>
           <Grid container direction="row" alignItems="center">
             <NavLink to="/">
-              <StyledImage src="assets/logo.png" alt="allergen-logo" />
+              <StyledImage src={logo} alt="allergen-logo" />
             </NavLink>
             <NavLink to="/additifs">Additifs</NavLink>
             <NavLink to="/products" className={style.link}>

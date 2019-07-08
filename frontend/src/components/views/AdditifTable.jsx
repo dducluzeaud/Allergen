@@ -11,6 +11,8 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
+
+import emojizeRisk from 'components/customComponents/emojizeRisk';
 import { getAdditives } from 'utils/api/APIService';
 
 const PaperRoot = styled(Paper)`
@@ -84,39 +86,6 @@ const AdditifTable = () => {
     };
     fetchAdditives();
   }, [rowsPerPage, page, order, orderBy]);
-
-  const emojizeRisk = (risk) => {
-    const emoji = {
-      0: () => (
-        <span role="img" aria-label="red-heart">
-          ❤️
-        </span>
-      ),
-      1: () => (
-        <span role="img" aria-label="green-heart">
-          💚
-        </span>
-      ),
-      2: () => (
-        <span role="img" aria-label="check">
-          ✅
-        </span>
-      ),
-      3: () => (
-        <span role="img" aria-label="heartBroken">
-          💔
-        </span>
-      ),
-      4: () => (
-        <span role="img" aria-label="forbidden">
-          ⛔️
-        </span>
-      ),
-      default: () => null,
-    };
-
-    return (emoji[risk] || emoji.default)();
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

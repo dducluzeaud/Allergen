@@ -1,4 +1,4 @@
-import { isEmpty } from 'ramda';
+import { isEmpty, isNil } from 'ramda';
 import queryString from 'query-string';
 import API from './API';
 
@@ -9,7 +9,6 @@ export const getProducts = (page, perPage, params) => {
   const offset = page * perPage;
   const url = 'product/';
 
-  console.log(!isEmpty(params));
   if (!isEmpty(params)) return API.get(`${url}?${queryString.stringify(params)}`);
 
   return API.get(`${url}?offset=${offset}&limit=${perPage}`);
