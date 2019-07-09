@@ -12,6 +12,9 @@ before_install:
   - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
 
 before_script:
+  - pwd
+  - ls -l
+  - docker --version
   - docker-compose --version
   - docker-compose pull
   - docker-compose build
