@@ -75,7 +75,7 @@ const ProductDetail = ({ match }) => {
     const avatarStyle = grade[nutritionGrade]();
 
     return (
-      <Avatar aria-label="Nutriscore" className={(avatarStyle, classes.avatar)}>
+      <Avatar aria-label="Nutriscore" className={`${avatarStyle} ${classes.avatar}`}>
         {nutritionGrade}
       </Avatar>
     );
@@ -83,13 +83,13 @@ const ProductDetail = ({ match }) => {
 
   const renderCategories = () => {
     const { categories } = product;
-    const categoriesList = categories.map(c => c.category_name);
+    const categoriesList = categories.map((c) => c.category_name);
 
     return (
       <Grid container justify="center" alignItems="center">
         <Grid className={classes.categoryContainer}>
           <Typography variant="h6">Catégories:</Typography>
-          {categoriesList.map(category => (
+          {categoriesList.map((category) => (
             <Chip
               key={category}
               color="primary"
@@ -109,7 +109,7 @@ const ProductDetail = ({ match }) => {
 
     if (isEmpty(ingredients)) return null;
 
-    const ingredienstList = ingredients.map(i => ({ name: i.ingredient_name }));
+    const ingredienstList = ingredients.map((i) => ({ name: i.ingredient_name }));
 
     return <SimpleCard title="Ingrédients" list={ingredienstList} />;
   };
@@ -119,7 +119,7 @@ const ProductDetail = ({ match }) => {
 
     if (isEmpty(nutriments)) return null;
 
-    const nutrimentsList = nutriments.map(n => ({
+    const nutrimentsList = nutriments.map((n) => ({
       name: n.nutriment_name,
       quantity: `${parseInt(n.nutriment_quantity, 10)} mg`,
     }));
@@ -132,7 +132,7 @@ const ProductDetail = ({ match }) => {
 
     if (isEmpty(vitamins)) return null;
 
-    const vitaminsList = vitamins.map(v => ({
+    const vitaminsList = vitamins.map((v) => ({
       name: v.vitamin_name,
       quantity: v.quantity,
     }));
@@ -145,7 +145,7 @@ const ProductDetail = ({ match }) => {
 
     if (isEmpty(additives)) return null;
 
-    const additivesList = additives.map(a => ({
+    const additivesList = additives.map((a) => ({
       name: a.additive_name,
       quantity: emojizeRisk(a.risk),
       description: a.description,
@@ -159,7 +159,7 @@ const ProductDetail = ({ match }) => {
 
     if (isEmpty(allergens)) return null;
 
-    const allergensList = allergens.map(a => ({
+    const allergensList = allergens.map((a) => ({
       name: a.allergen_name,
     }));
 
@@ -171,7 +171,7 @@ const ProductDetail = ({ match }) => {
 
     if (isEmpty(traces)) return null;
 
-    const tracesList = traces.map(t => ({
+    const tracesList = traces.map((t) => ({
       name: t.name,
     }));
 
