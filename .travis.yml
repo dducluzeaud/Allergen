@@ -2,6 +2,9 @@ sudo: required
 
 language: python
 
+python:
+  - "3.7"
+
 services:
   - docker
 
@@ -15,7 +18,9 @@ before_install:
   - sudo apt-get -y install docker-ce
 
 before_script:
-  - docker-compose up --build
+  - docker-compose --version
+  - docker-compose build
+  - docker-compose up
 
 script:
   - docker-compose run django coverage run ./manage.py test
