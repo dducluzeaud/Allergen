@@ -36,10 +36,10 @@ const useStyles = makeStyles({
   },
 });
 
-const ProductsList = ({ location }) => {
-  const queryParams = location.search;
+const ProductsList = ({ location, history }) => {
+  const { search: queryParams } = location;
   const classes = useStyles();
-  const [numberOfProducts, setNumberOfProducts] = useState(20);
+  const [numberOfProducts, setNumberOfProducts] = useState(null);
   const [page, setPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(20);
   const [products, setProducts] = useState([]);
@@ -56,7 +56,7 @@ const ProductsList = ({ location }) => {
       setProducts(results);
     };
     fetchProducts();
-  }, [numberOfProducts, page, productsPerPage, queryParams]);
+  }, [page, productsPerPage, queryParams]);
 
   const displayNutriscore = (score) => {
     const nutriscore = {
@@ -82,8 +82,8 @@ const ProductsList = ({ location }) => {
     <>
       <Grid container direction="row" justify="center" spacing={1}>
         {products.map(product => (
-          <Card className={classes.card}>
-            <CardActionArea key={product.id}>
+          <Card key={product.id} className={classes.card}>
+            <CardActionArea onClick={() => history.push(`/product/${product.barcode}`)}>
               <CardMedia
                 className={classes.media}
                 image={product.image_url || 'assets/image-not-found.png'}
@@ -129,6 +129,11 @@ const ProductsList = ({ location }) => {
 };
 
 ProductsList.propTypes = {
-  location: PropTypes.shape({}).isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 export default ProductsList;

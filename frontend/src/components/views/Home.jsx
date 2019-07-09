@@ -12,9 +12,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import { Grid } from '@material-ui/core';
 
+import home from 'assets/home.png';
 import SearchInput from '../customComponents/form/SearchInput';
-
-const home = require('assets/home.png');
 
 const FlexGrid = styled(Grid)`
   background-position: center center;
@@ -129,7 +128,7 @@ const Home = ({ history }) => {
               >
                 {Object.keys(searchFields).map(field => (
                   <MenuItem onClick={event => handleMenuItem(event, setFieldValue)}>
-                    <ListItemText primary={field} className={classes.capitalize} />
+                    <ListItemText key={field} primary={field} className={classes.capitalize} />
                   </MenuItem>
                 ))}
               </Menu>
@@ -142,7 +141,9 @@ const Home = ({ history }) => {
 };
 
 Home.propTypes = {
-  history: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default Home;
