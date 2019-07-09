@@ -19,8 +19,9 @@ django-rest-swagger = "*"
 djoser = "*"
 djangorestframework-jwt = "*"
 djangorestframework-simplejwt = "*"
-psycopg2 = "*"
 psycopg2-binary = "*"
+translate = "*"
+googletrans = "*"
 
 [requires]
 python_version = "3.7"

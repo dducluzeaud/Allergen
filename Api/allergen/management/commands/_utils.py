@@ -3,7 +3,7 @@ from typing import List, Iterator, Union
 import pandas as pd
 import requests
 import string
-from py_translator import Translator
+from googletrans import Translator
 
 from .languages import LANGCODES
 

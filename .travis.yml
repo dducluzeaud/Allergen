@@ -3,10 +3,10 @@ sudo: required
 language: python
 
 services:
-    - docker
+  - docker
 
 env:
-  - DOCKER_COMPOSE_VERSION=1.22.0
+  - DOCKER_COMPOSE_VERSION=1.23.2
 
 before_install:
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -14,17 +14,13 @@ before_install:
   - sudo apt-get update
   - sudo apt-get -y install docker-ce
 
-script:
-    - docker version
-    - docker-compose version
-
 before_script:
-    - docker-compose up --build -d
+  - docker-compose up --build
 
 script:
-    - docker-compose run django coverage run ./manage.py test
-    - docker-compose run django coverage report
-    - docker-compose run django coverage xml
+  - docker-compose run django coverage run ./manage.py test
+  - docker-compose run django coverage report
+  - docker-compose run django coverage xml
 
 after_success:
-    - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash)
