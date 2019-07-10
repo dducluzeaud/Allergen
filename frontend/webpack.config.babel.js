@@ -4,7 +4,7 @@ import Dotenv from 'dotenv-webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 module.exports = {
-  entry: [path.join(__dirname, 'src', 'index.js'), 'webpack/hot/dev-server'],
+  entry: path.join(__dirname, 'src', 'index.js'),
   output: {
     publicPath: '/',
     path: path.join(__dirname, 'build', 'js'),
@@ -17,17 +17,23 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'src'),
     historyApiFallback: { disableDotRule: true },
-    liveReload: false,
+    watchContentBase: true,
     hot: true,
+    quiet: true,
   },
   module: {
     rules: [
       {
         // we do not want anything from node_modules to be compiled
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
         resolve: {
-          extensions: ['.jsx', '.js', '.json'],
+          extensions: ['.jsx', '.js'],
         },
       },
       {
