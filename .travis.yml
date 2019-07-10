@@ -3,7 +3,7 @@ sudo: required
 language: generic
 
 services:
-    - docker
+  - docker
 
 env:
   - DOCKER_COMPOSE_VERSION=1.23.2
@@ -15,15 +15,16 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 script:
-    - docker version
-    - docker-compose version
+  - docker version
+  - docker-compose version
+    
 before_script:
-    - docker-compose up --build
+  - docker-compose up --build
 
 script:
-    - docker-compose run web coverage run ./manage.py test
-    - docker-compose run web coverage report
-    - docker-compose run web coverage xml
+  - docker-compose run web coverage run ./manage.py test
+  - docker-compose run web coverage report
+  - docker-compose run web coverage xml
 
 after_success:
-    - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash)
