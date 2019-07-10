@@ -1,6 +1,6 @@
 sudo: required
 
-language: python
+language: generic
 
 services:
     - docker
@@ -19,7 +19,7 @@ script:
     - docker-compose version
 
 before_script:
-    - cd .. && docker-compose up --build -d
+    - docker-compose up --build -d
 
 script:
     - docker-compose run web coverage run ./manage.py test
