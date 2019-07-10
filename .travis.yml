@@ -19,7 +19,7 @@ script:
     - docker-compose version
 
 before_script:
-    - docker-compose up --build -d
+    - cd .. && docker-compose up --build -d
 
 script:
     - docker-compose run web coverage run ./manage.py test
