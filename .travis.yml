@@ -18,7 +18,6 @@ before_install:
 before_script:
   - docker --version
   - docker-compose --version
-  - docker-compose pull
   - docker-compose build
   - docker-compose up
 
