@@ -20,7 +20,6 @@ djoser = "*"
 djangorestframework-jwt = "*"
 djangorestframework-simplejwt = "*"
 psycopg2-binary = "*"
-translate = "*"
 googletrans = "*"
 
 [requires]

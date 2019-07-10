@@ -6,11 +6,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
   django:
-    build: ./Api
+    build: ./api
     command: python manage.py migrate --noinput
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./Api:/app/Api
+      - ./api:/app/api
     ports:
       - 8000:8000
     environment:
