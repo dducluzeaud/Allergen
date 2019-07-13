@@ -2,10 +2,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Home from 'components/views/Home';
-import AdditifTable from 'components/views/AdditifTable';
-import ProductsList from 'components/views/ProductsList';
-import ProductDetail from 'components/views/ProductDetail';
+import Home from 'views/Home';
+import AdditifTable from 'views/AdditifTable';
+import ProductsList from 'views/ProductsList';
+import ProductDetail from 'views/ProductDetail';
 
 export default props => (
   <Switch>
