@@ -19,7 +19,8 @@ script:
   - docker-compose version
     
 before_script:
-  - docker-compose up --build -d
+  - docker-compose build
+  - docker-compose up -d
 
 script:
   - docker-compose run django coverage run ./manage.py test
