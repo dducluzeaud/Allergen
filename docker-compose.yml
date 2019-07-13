@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3'
 
 services:
   db:
@@ -21,7 +21,7 @@ services:
     build: ./frontend
     command: ["npm", "start"]
     volumes:
-      - ./frontend:/app/frontend:cached
+      - ./frontend:/app/frontend/:cached
       - node-modules:/app/frontend/node_modules
     ports:
       - "8080:8080"
