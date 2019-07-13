@@ -1,30 +1,30 @@
 sudo: required
 
-language: generic
+language: python
 
 services:
-  - docker
+    - docker
 
 env:
-  - DOCKER_COMPOSE_VERSION=1.23.2
+  - DOCKER_COMPOSE_VERSION=1.22.0
 
 before_install:
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y install docker-ce
 
 script:
-  - docker version
-  - docker-compose version
-    
+    - docker version
+    - docker-compose version
+
 before_script:
-  - docker-compose up --build -d
+    - docker-compose up --build -d
 
 script:
-  - docker-compose run django coverage run ./manage.py test
-  - docker-compose run django coverage report
-  - docker-compose run django coverage xml
+    - docker-compose run django coverage run ./manage.py test
+    - docker-compose run django coverage report
+    - docker-compose run django coverage xml
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+    - bash <(curl -s https://codecov.io/bash)

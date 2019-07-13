@@ -22,7 +22,9 @@ const CustomInput = ({ field, ...props }) => {
 };
 
 CustomInput.propTypes = {
-  field: PropTypes.shape({}).isRequired,
+  field: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
   form: PropTypes.string.isRequired,
 };
 

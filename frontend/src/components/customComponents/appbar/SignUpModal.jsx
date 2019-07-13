@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
 import Typography from '@material-ui/core/Typography';
@@ -52,7 +52,7 @@ const SignUpModal = (props) => {
     } catch (error) {
       const { response } = error;
       if (response.status === 400) {
-        Object.entries(response.data).map(([field, errors]) => {
+        Object.entries(response.data).forEach(([field, errors]) => {
           errors.map((e) => setFieldError(field, e));
         });
       }

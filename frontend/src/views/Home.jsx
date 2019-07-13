@@ -13,7 +13,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { Grid } from '@material-ui/core';
 
 import home from 'assets/home.png';
-import SearchInput from '../customComponents/form/SearchInput';
+import SearchInput from 'components/customComponents/form/SearchInput';
 
 const FlexGrid = styled(Grid)`
   background-position: center center;
@@ -101,7 +101,7 @@ const Home = ({ history }) => {
           searchField: 'produit',
         }}
         validationSchema={SearchSchema}
-        onSubmit={(values, actions) => handleSearch(values, actions)}
+        onSubmit={handleSearch}
       >
         {({ values, setFieldValue }) => (
           <Form>
@@ -127,8 +127,8 @@ const Home = ({ history }) => {
                 }}
               >
                 {Object.keys(searchFields).map(field => (
-                  <MenuItem onClick={event => handleMenuItem(event, setFieldValue)}>
-                    <ListItemText key={field} primary={field} className={classes.capitalize} />
+                  <MenuItem key={field} onClick={event => handleMenuItem(event, setFieldValue)}>
+                    <ListItemText primary={field} className={classes.capitalize} />
                   </MenuItem>
                 ))}
               </Menu>

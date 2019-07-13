@@ -42,9 +42,14 @@ const CenteredModal = ({ visible, onClose, children }) => {
 };
 
 CenteredModal.propTypes = {
-  visible: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
+  visible: PropTypes.bool,
+  onClose: PropTypes.func,
   children: PropTypes.node.isRequired,
+};
+
+CenteredModal.defaultProps = {
+  visible: null,
+  onClose: null,
 };
 
 export default CenteredModal;
