@@ -10,7 +10,7 @@ services:
     command: python manage.py migrate --noinput
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./api:/app/api
+      - ./api:/app/api:cached
     ports:
       - 8000:8000
     environment:
@@ -22,7 +22,7 @@ services:
     command: ["npm", "start"]
     volumes:
       - ./frontend:/app/frontend:cached
-      - node-modules:/app/frontend/node_modules
+      - node-modules:/app/frontend/node_modules:cached
     ports:
       - "8080:8080"
 

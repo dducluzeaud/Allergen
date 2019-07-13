@@ -25,7 +25,6 @@ script:
   - docker-compose run django coverage run ./manage.py test
   - docker-compose run django coverage report
   - docker-compose run django coverage xml
-
-after_success:
-  # request codecov to detect CI environment to pass through to docker
-  - docker-compose run django bash <(curl -s https://codecov.io/env)
+  - docker-compose run django bash <(curl -s https://codecov.io/env) -cF python
+  - docker-compose run frontend jest --collectCoverage 
+  - docker-compose run frontend bash <(curl -s https://codecov.io/env) -cF js

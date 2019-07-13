@@ -90,7 +90,7 @@ const Home = ({ history }) => {
   return (
     <FlexGrid container direction="column" justify="center" align="center">
       <Title>
-        Débarrassez vous de vos allergies alimentaires !
+        Débarrassez-vous de vos allergies alimentaires !
         <span role="img" aria-label="smile">
           😁
         </span>
@@ -127,8 +127,8 @@ const Home = ({ history }) => {
                 }}
               >
                 {Object.keys(searchFields).map(field => (
-                  <MenuItem onClick={event => handleMenuItem(event, setFieldValue)}>
-                    <ListItemText key={field} primary={field} className={classes.capitalize} />
+                  <MenuItem key={field} onClick={event => handleMenuItem(event, setFieldValue)}>
+                    <ListItemText primary={field} className={classes.capitalize} />
                   </MenuItem>
                 ))}
               </Menu>
