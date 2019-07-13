@@ -27,4 +27,5 @@ script:
   - docker-compose run django coverage xml
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  # request codecov to detect CI environment to pass through to docker
+  - dokcer-compose run django bash <(curl -s https://codecov.io/env)
