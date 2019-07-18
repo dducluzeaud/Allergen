@@ -13,9 +13,10 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import emojizeRisk from 'components/customComponents/emojizeRisk';
 import { getProductDetail } from 'utils/api/APIService';
-import SimpleCard from 'components/StyledComponents/SimpleCard';
+
+import emojizeRisk from 'components/customComponents/emojizeRisk';
+import SimpleCard from 'components/customComponents/SimpleCard';
 
 const useStyle = makeStyles({
   card: {
