@@ -52,6 +52,9 @@ const ProductsList = ({ location, history }) => {
         data: { count, results },
       } = await getProducts(page, productsPerPage, params);
 
+      if (count === 0) return history.replace({ pathname: '/productnotfound', state: params });
+      if (count === 1) return history.replace(`/product/${results[0].barcode}`);
+
       setNumberOfProducts(count);
       setProducts(results);
     };
@@ -81,8 +84,8 @@ const ProductsList = ({ location, history }) => {
   return (
     <>
       <Grid container direction="row" justify="center" spacing={1}>
-        {products.map(product => (
-          <Card key={product.id} className={classes.card}>
+        {products.map((product, i) => (
+          <Card key={i} className={classes.card}>
             <CardActionArea onClick={() => history.push(`/product/${product.barcode}`)}>
               <CardMedia
                 className={classes.media}
