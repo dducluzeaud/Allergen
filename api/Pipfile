@@ -7,11 +7,11 @@ verify_ssl = true
 django-debug-toolbar = "*"
 coverage = "*"
 requests-mock = "*"
+black = "*"
 
 [packages]
 django-cors-headers = "*"
 django = "*"
-django-rest-framework = "*"
 requests = "*"
 pandas = "*"
 django-filter = "*"
@@ -21,6 +21,10 @@ djangorestframework-jwt = "*"
 djangorestframework-simplejwt = "*"
 psycopg2-binary = "*"
 googletrans = "*"
+djangorestframework = "~=3.9.4"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
