@@ -61,6 +61,8 @@ const ErrorNotFound = ({ history }) => {
   );
 };
 
-ErrorNotFound.propTypes = {};
+ErrorNotFound.propTypes = {
+  history: PropTypes.shape({}).isRequired,
+};
 
 export default ErrorNotFound;
