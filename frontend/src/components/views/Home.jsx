@@ -10,28 +10,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import { Grid } from '@material-ui/core';
-
-import home from 'assets/home.png';
-import SearchInput from '../customComponents/form/SearchInput';
-
-const FlexGrid = styled(Grid)`
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-image: url(${home});
-  height: 90vh;
-`;
-
-const Title = styled.p`
-  text-align: center;
-  font-size: 3em;
-  font-weight: bold;
-  color: #255219;
-  justify-content: center;
-  align-self: center;
-`;
+import SearchInput from 'components/customComponents/form/SearchInput';
+import BackgroundImage from 'components/StyledComponents/BackgroundImage';
+import Title from 'components/StyledComponents/Title';
 
 const useStyles = makeStyles({
   capitalize: {
@@ -88,7 +69,7 @@ const Home = ({ history }) => {
   };
 
   return (
-    <FlexGrid container direction="column" justify="center" align="center">
+    <BackgroundImage container direction="column" justify="center" align="center">
       <Title>
         Débarrassez vous de vos allergies alimentaires !
         <span role="img" aria-label="smile">
@@ -126,9 +107,9 @@ const Home = ({ history }) => {
                   horizontal: 'left',
                 }}
               >
-                {Object.keys(searchFields).map(field => (
-                  <MenuItem onClick={event => handleMenuItem(event, setFieldValue)}>
-                    <ListItemText key={field} primary={field} className={classes.capitalize} />
+                {Object.keys(searchFields).map((field) => (
+                  <MenuItem key={field} onClick={(event) => handleMenuItem(event, setFieldValue)}>
+                    <ListItemText primary={field} className={classes.capitalize} />
                   </MenuItem>
                 ))}
               </Menu>
@@ -136,7 +117,7 @@ const Home = ({ history }) => {
           </Form>
         )}
       </Formik>
-    </FlexGrid>
+    </BackgroundImage>
   );
 };
 
