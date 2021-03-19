@@ -21,7 +21,7 @@ djangorestframework-jwt = "*"
 djangorestframework-simplejwt = "*"
 psycopg2-binary = "*"
 googletrans = "*"
-djangorestframework = "~=3.9.4"
+djangorestframework = "~=3.11.2"
 
 [requires]
 python_version = "3.7"
